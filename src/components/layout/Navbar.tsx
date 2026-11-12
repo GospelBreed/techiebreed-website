@@ -193,7 +193,7 @@ export function Navbar() {
           <Link
             href={auditCta.href}
             onNavigate={closeAll}
-            className="hidden h-12 items-center whitespace-nowrap rounded-[9px] bg-sprout px-5 text-[16px] font-medium text-white transition-[filter] duration-200 ease-in hover:brightness-90 md:inline-flex"
+            className="hidden h-12 items-center whitespace-nowrap rounded-[9px] bg-sprout px-5 text-[16px] font-semibold text-on-sprout transition-[filter] duration-200 ease-in hover:brightness-90 md:inline-flex"
           >
             {auditCta.label}
           </Link>
@@ -269,7 +269,7 @@ export function Navbar() {
           <Link
             href={auditCta.href}
             onNavigate={closeAll}
-            className="mx-4 mt-6 inline-flex h-[50px] items-center justify-center rounded-[9px] bg-sprout px-5 text-[16px] font-medium text-white transition-[filter] hover:brightness-90"
+            className="mx-4 mt-6 inline-flex h-[50px] items-center justify-center rounded-[9px] bg-sprout px-5 text-[16px] font-semibold text-on-sprout transition-[filter] hover:brightness-90"
           >
             {auditCta.label}
           </Link>

@@ -67,7 +67,7 @@ export async function Footer() {
             </p>
             <Link
               href={auditCta.href}
-              className="mt-6 inline-flex h-12 items-center rounded-[9px] bg-sprout px-5 font-medium text-white transition-[filter] duration-200 ease-in hover:brightness-90"
+              className="mt-6 inline-flex h-12 items-center rounded-[9px] bg-sprout px-5 font-semibold text-on-sprout transition-[filter] duration-200 ease-in hover:brightness-90"
             >
               {auditCta.label}
             </Link>
@@ -165,7 +165,7 @@ export async function Footer() {
                   <a
                     href={href}
                     aria-label={`TechieBreed on ${label}`}
-                    className="grid size-10 place-items-center rounded-full border border-white/30 text-white transition-colors duration-300 hover:border-sprout hover:bg-sprout"
+                    className="grid size-10 place-items-center rounded-full border border-white/30 text-white transition-colors duration-300 hover:border-sprout hover:bg-sprout hover:text-on-sprout"
                   >
                     <Icon className="size-4" />
                   </a>

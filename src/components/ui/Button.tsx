@@ -13,7 +13,7 @@ const base =
 
 const variants: Record<ButtonVariant, string> = {
   // Sprout-green pill: the main call to action
-  primary: "bg-sprout text-white hover:bg-sprout-bright hover:shadow-sprout",
+  primary: "bg-sprout text-on-sprout hover:bg-sprout-bright hover:shadow-sprout",
   // Outlined pill on light backgrounds
   secondary: "border border-forest/25 bg-white text-forest hover:border-forest hover:bg-mint",
   // Forest-green pill used inside pastel cards

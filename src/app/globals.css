@@ -13,6 +13,7 @@
   --color-pine: #0d2a1a; /* card titles */
   --color-sprout: #2dbd32; /* primary pill buttons */
   --color-sprout-bright: #35d03b; /* primary hover */
+  --color-on-sprout: #0d2a1a; /* text on sprout: 6.2:1, passes WCAG AA */
   --color-leaf: #1e7e21; /* text links on white */
   --color-mint: #e7efe9; /* image wells, soft fills */
   --color-mint-wash: rgb(213 242 214 / 0.5); /* menu item hover */
