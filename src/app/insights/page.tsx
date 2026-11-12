@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/metadata";
 import { PageHero } from "@/components/sections/PageHero";
 import { CTABand } from "@/components/sections/CTABand";
-import { InsightsIndex, collectTags } from "@/components/sections/InsightsIndex";
-import { getArticles } from "@/lib/content";
+import { InsightsIndex } from "@/components/sections/InsightsIndex";
+import { collectTags, getArticles } from "@/lib/content";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Insights",
-  description: "Practical, plain-language ideas on automation, AI and running a business that works better.",
-  alternates: { canonical: "/insights" },
-};
+  description:
+    "Practical, plain-language ideas on automation, AI and running a business that works better.",
+  path: "/insights",
+});
 
 export default async function InsightsPage() {
   const articles = await getArticles();

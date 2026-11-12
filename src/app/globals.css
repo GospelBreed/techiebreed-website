@@ -14,7 +14,7 @@
   --color-sprout: #2dbd32; /* primary pill buttons */
   --color-sprout-bright: #35d03b; /* primary hover */
   --color-on-sprout: #0d2a1a; /* text on sprout: 6.2:1, passes WCAG AA */
-  --color-leaf: #1e7e21; /* text links on white */
+  --color-leaf: #1a7a1e; /* text links: 4.65:1 on mint, 5.3:1 on white */
   --color-mint: #e7efe9; /* image wells, soft fills */
   --color-mint-wash: rgb(213 242 214 / 0.5); /* menu item hover */
   --color-moss: #2a5d45; /* menu item hover text */
@@ -44,7 +44,7 @@
   /* Type */
   --font-sans: var(--font-geist), system-ui, sans-serif;
   --font-display: var(--font-fraunces), Georgia, serif;
-  --font-pill: var(--font-dm-sans), system-ui, sans-serif;
+  --font-pill: var(--font-geist), system-ui, sans-serif; /* small labels and pills */
 
   /* Motion */
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
@@ -80,11 +80,12 @@
   h3,
   h4 {
     color: var(--color-ink);
-    text-wrap: balance;
   }
 
-  p {
-    text-wrap: pretty;
+  /* Balanced line breaks for headings only: it is costly on long body text. */
+  h1,
+  h2 {
+    text-wrap: balance;
   }
 
   :focus-visible {
@@ -231,7 +232,8 @@
   animation-play-state: paused !important;
 }
 @keyframes tb-fill {
-  to { width: 100%; }
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
 }
 
 .feature-slide {

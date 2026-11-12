@@ -6,7 +6,10 @@ import { Reveal } from "@/components/ui/Reveal";
 import { ArticleCard } from "@/components/cards/ArticleCard";
 import { CTABand } from "@/components/sections/CTABand";
 import { Prose } from "@/components/mdx/Prose";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { formatDate, getArticles, tagSlug } from "@/lib/content";
+import { pageMeta } from "@/lib/metadata";
+import { site } from "@/lib/site";
 
 // Render unknown slugs fully before responding, so they return a real 404.
 export const ensureStatic = "navigation";
@@ -19,18 +22,14 @@ export async function generateMetadata({ params }: PageProps<"/insights/[slug]">
   const { slug } = await params;
   const article = (await getArticles()).find((a) => a.slug === slug);
   if (!article) return {};
-  return {
+  return pageMeta({
     title: article.title,
     description: article.summary,
-    alternates: { canonical: `/insights/${article.slug}` },
-    openGraph: {
-      type: "article",
-      title: article.title,
-      description: article.summary,
-      publishedTime: article.date,
-      tags: article.tags,
-    },
-  };
+    path: `/insights/${article.slug}`,
+    type: "article",
+    publishedTime: article.date,
+    tags: article.tags,
+  });
 }
 
 export default async function ArticlePage({ params }: PageProps<"/insights/[slug]">) {
@@ -48,8 +47,25 @@ export default async function ArticlePage({ params }: PageProps<"/insights/[slug
     })
     .slice(0, 3);
 
+  const articleUrl = new URL(`/insights/${article.slug}`, site.url).toString();
+
   return (
     <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "Article",
+          headline: article.title,
+          description: article.summary,
+          datePublished: article.date,
+          keywords: article.tags.join(", "),
+          mainEntityOfPage: articleUrl,
+          url: articleUrl,
+          image: `${articleUrl}/opengraph-image`,
+          author: { "@type": "Organization", name: article.author, url: site.url },
+          publisher: { "@id": `${site.url}/#organization` },
+        }}
+      />
       <section className="on-dark relative overflow-hidden bg-[radial-gradient(70%_90%_at_50%_45%,var(--color-forest-glow)_0%,var(--color-forest)_62%)] text-white">
         <Reveal className="container-x flex max-w-[860px] flex-col items-start py-14 md:py-20">
           <Link

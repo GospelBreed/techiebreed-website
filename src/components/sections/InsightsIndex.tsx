@@ -60,9 +60,3 @@ export function InsightsIndex({
   );
 }
 
-/** Every tag used across articles, de-duplicated, in first-seen order. */
-export function collectTags(articles: Article[]): string[] {
-  const seen = new Map<string, string>();
-  for (const a of articles) for (const t of a.tags) if (!seen.has(tagSlug(t))) seen.set(tagSlug(t), t);
-  return [...seen.values()];
-}

@@ -127,7 +127,7 @@ export function FeatureTabs({ slides, label }: { slides: FeatureSlide[]; label: 
             <span aria-hidden className="relative z-10 size-2 shrink-0 rotate-45 rounded-[2px]" style={{ background: s.dot }} />
             <span className="relative z-10">{s.label}</span>
             {k === index && (
-              <span key={cycle} aria-hidden className="feature-pill-fill absolute bottom-0 left-0 h-0.5 w-0 bg-white/55" />
+              <span key={cycle} aria-hidden className="feature-pill-fill absolute bottom-0 left-0 h-0.5 w-full origin-left [transform:scaleX(0)] bg-white/55" />
             )}
           </button>
         ))}

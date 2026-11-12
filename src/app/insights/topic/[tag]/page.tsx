@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PageHero } from "@/components/sections/PageHero";
 import { CTABand } from "@/components/sections/CTABand";
-import { InsightsIndex, collectTags } from "@/components/sections/InsightsIndex";
-import { getArticles, tagSlug } from "@/lib/content";
+import { InsightsIndex } from "@/components/sections/InsightsIndex";
+import { collectTags, getArticles, tagSlug } from "@/lib/content";
+import { pageMeta } from "@/lib/metadata";
 
 // Render unknown slugs fully before responding, so they return a real 404.
 export const ensureStatic = "navigation";
@@ -22,11 +23,11 @@ async function resolve(tag: string) {
 export async function generateMetadata({ params }: PageProps<"/insights/topic/[tag]">): Promise<Metadata> {
   const { name } = await resolve((await params).tag);
   if (!name) return {};
-  return {
+  return pageMeta({
     title: `${name} — Insights`,
     description: `Articles about ${name.toLowerCase()} from TechieBreed.`,
-    alternates: { canonical: `/insights/topic/${tagSlug(name)}` },
-  };
+    path: `/insights/topic/${tagSlug(name)}`,
+  });
 }
 
 export default async function TopicPage({ params }: PageProps<"/insights/topic/[tag]">) {

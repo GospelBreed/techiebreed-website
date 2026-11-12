@@ -1,8 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { DM_Sans, Fraunces, Geist } from "next/font/google";
+import { Fraunces, Geist } from "next/font/google";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { MobileAuditBar } from "@/components/layout/MobileAuditBar";
+import { JsonLd, organizationLd } from "@/components/seo/JsonLd";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -12,11 +13,9 @@ const fraunces = Fraunces({
   variable: "--font-fraunces",
   subsets: ["latin"],
   style: ["normal", "italic"],
-  axes: ["opsz"],
   display: "swap",
 });
 
-const dmSans = DM_Sans({ variable: "--font-dm-sans", subsets: ["latin"], display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -25,6 +24,15 @@ export const metadata: Metadata = {
     template: `%s | ${site.name}`,
   },
   description: site.description,
+  applicationName: site.name,
+  openGraph: {
+    type: "website",
+    siteName: site.name,
+    locale: "en_NG",
+  },
+  twitter: { card: "summary_large_image" },
+  robots: { index: true, follow: true },
+  formatDetection: { telephone: false, email: false, address: false },
 };
 
 export const viewport: Viewport = {
@@ -33,11 +41,12 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en-NG" className={`${geist.variable} ${fraunces.variable} ${dmSans.variable}`}>
+    <html lang="en-NG" className={`${geist.variable} ${fraunces.variable}`}>
       <body className="flex min-h-dvh flex-col">
         <noscript>
           <style>{".reveal>*,.hero .hero-copy>*,.hero .hero-b{opacity:1!important;translate:none!important;scale:none!important}"}</style>
         </noscript>
+        <JsonLd data={organizationLd()} />
         <Navbar />
         <main id="main" className="flex-1">
           {children}

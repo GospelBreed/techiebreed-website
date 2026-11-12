@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/metadata";
 import { ArrowRight, Feather, HeartHandshake, Lightbulb, ShieldCheck, Sprout, UserRound, Users } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
@@ -7,12 +8,12 @@ import { PillarCard } from "@/components/cards/PillarCard";
 import { PageHero } from "@/components/sections/PageHero";
 import { CTABand } from "@/components/sections/CTABand";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "About",
   description:
     "TechieBreed is evolving into an AI Operations and Technology company — building the working systems that make businesses run better.",
-  alternates: { canonical: "/about" },
-};
+  path: "/about",
+});
 
 const values = [
   { icon: Feather, title: "Simplicity", text: "We make technology easy to use and easy to understand." },

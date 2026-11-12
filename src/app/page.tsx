@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/metadata";
 import { ArrowUpRight, Layers, RefreshCw, ShieldCheck, Wrench } from "lucide-react";
 import { Hero } from "@/components/home/Hero";
 import { PainPoints } from "@/components/home/PainPoints";
@@ -23,12 +24,13 @@ import { programmes } from "@/content-data/academy";
 import { getCaseStudies } from "@/lib/content";
 import { site } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: { absolute: `${site.name} — Less operational pressure. More intelligent growth.` },
+export const metadata: Metadata = pageMeta({
+  title: `${site.name} — Less operational pressure. More intelligent growth.`,
   description:
     "We build smart systems that automate everyday operations, connect your business tools and give your team more time to focus on what matters.",
-  alternates: { canonical: "/" },
-};
+  path: "/",
+  absoluteTitle: true,
+});
 
 function ChipList({ items, arrows }: { items: string[]; arrows?: boolean }) {
   return (

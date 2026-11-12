@@ -12,6 +12,7 @@ import { Results } from "@/components/mdx/Results";
 import { Prose } from "@/components/mdx/Prose";
 import { services } from "@/content-data/services";
 import { getCaseStudies, getCaseStudy } from "@/lib/content";
+import { pageMeta } from "@/lib/metadata";
 import { auditCta } from "@/lib/site";
 
 // Render unknown slugs fully before responding, so they return a real 404.
@@ -24,12 +25,12 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps<"/our-work/[slug]">): Promise<Metadata> {
   const cs = await getCaseStudy((await params).slug);
   if (!cs) return {};
-  return {
+  return pageMeta({
     title: `${cs.client}: ${cs.title}`,
     description: cs.summary,
-    alternates: { canonical: `/our-work/${cs.slug}` },
-    openGraph: { type: "article", title: cs.title, description: cs.summary },
-  };
+    path: `/our-work/${cs.slug}`,
+    type: "article",
+  });
 }
 
 export default async function CaseStudyPage({ params }: PageProps<"/our-work/[slug]">) {

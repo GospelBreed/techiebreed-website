@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/metadata";
 import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
 import { CaseStudyCard } from "@/components/cards/CaseStudyCard";
@@ -7,12 +8,12 @@ import { CTABand } from "@/components/sections/CTABand";
 import { CaseArt } from "@/components/illustrations/CaseArt";
 import { getCaseStudies } from "@/lib/content";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Our Work",
   description:
     "Systems we've built for real businesses: sponsorship acquisition, property operations and automated student enrolment.",
-  alternates: { canonical: "/our-work" },
-};
+  path: "/our-work",
+});
 
 export default async function OurWorkPage() {
   const studies = await getCaseStudies();

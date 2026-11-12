@@ -33,8 +33,9 @@ export function ServiceCard({
       <H className="text-[21px] leading-[1.35] font-bold text-forest md:text-[22px]">{title}</H>
       <p className="mt-3 flex-1 text-[15px] leading-[1.55] text-pine/80">{summary}</p>
       <div className="mt-6">
-        <Button href={href} variant="dark" size="sm" aria-label={`${cta}: ${title}`}>
+        <Button href={href} variant="dark" size="sm">
           {cta}
+          <span className="sr-only"> about {title}</span>
         </Button>
       </div>
     </article>

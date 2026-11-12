@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/metadata";
 import { Check, Mail, MapPin, Phone } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
@@ -7,12 +8,12 @@ import { BookingEmbed } from "@/components/sections/BookingEmbed";
 import { DiscoveryForm } from "@/components/forms/DiscoveryForm";
 import { isPlaceholder, site } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Contact",
   description:
     "Tell us what's taking up your team's time, or book an AI Operations Audit to find out what's worth automating first.",
-  alternates: { canonical: "/contact" },
-};
+  path: "/contact",
+});
 
 const nextSteps = [
   { title: "We read your message", text: "A real person reviews every enquiry — no automated sales sequence." },

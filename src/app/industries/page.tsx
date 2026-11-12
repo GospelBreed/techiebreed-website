@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/metadata";
 import { ArrowRight, Check } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
@@ -11,12 +12,12 @@ import { industries } from "@/content-data/industries";
 import { auditCta } from "@/lib/site";
 import { cn } from "@/lib/cn";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Industries",
   description:
     "From growing SMEs to enterprise teams: the operational problems we solve in each industry, and the systems we build to fix them.",
-  alternates: { canonical: "/industries" },
-};
+  path: "/industries",
+});
 
 const shortNames: Record<string, string> = {
   smes: "SMEs",

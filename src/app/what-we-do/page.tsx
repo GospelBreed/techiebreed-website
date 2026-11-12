@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/metadata";
 import { Check, Compass } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
@@ -14,12 +15,12 @@ import { packages, services } from "@/content-data/services";
 import { auditCta } from "@/lib/site";
 import { cn } from "@/lib/cn";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "What We Do",
   description:
     "Workflow automation, AI assistants, sales systems, integrations, reporting and custom software — done-for-you systems that take repetitive work off your team.",
-  alternates: { canonical: "/what-we-do" },
-};
+  path: "/what-we-do",
+});
 
 const spyItems = [
   ...services.map((s) => ({ id: s.id, label: s.short })),

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/metadata";
 import { ArrowUpRight, CalendarDays, Laptop, Presentation, Wrench } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
@@ -10,12 +11,12 @@ import { AcademyInterestForm } from "@/components/forms/AcademyInterestForm";
 import { academyFormat, programmes } from "@/content-data/academy";
 import { site } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Academy",
   description:
     "Practical four-week programmes that teach business owners and teams to put AI and automation to work — weekend live sessions, weekday practice and full learning hub access.",
-  alternates: { canonical: "/academy" },
-};
+  path: "/academy",
+});
 
 const formatIcons = [CalendarDays, Presentation, Wrench, Laptop];
 
@@ -68,7 +69,7 @@ export default function AcademyPage() {
         <Reveal as="ul" className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {programmes.map((p, i) => (
             <li key={p.id} className={`flex flex-col rounded-[28px] p-6 md:p-7 ${washBg[washCycle[i % washCycle.length]]}`}>
-              <span className="font-display text-[18px] font-semibold text-leaf italic">{String(i + 1).padStart(2, "0")}</span>
+              <span className="font-display text-[18px] font-semibold text-forest italic">{String(i + 1).padStart(2, "0")}</span>
               <h3 className="mt-2 text-[21px] leading-[1.3] font-bold text-forest">{p.title}</h3>
               <p className="mt-2 flex-1 text-[15.5px] leading-[1.55] text-pine/80">{p.summary}</p>
               <p className="mt-5 font-pill text-[13px] font-semibold text-pine/70">4 weeks · Live + practical</p>

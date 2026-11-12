@@ -152,6 +152,13 @@ export function tagSlug(tag: string): string {
     .replace(/^-|-$/g, "");
 }
 
+/** Every tag used across articles, de-duplicated, in first-seen order. */
+export function collectTags(articles: Article[]): string[] {
+  const seen = new Map<string, string>();
+  for (const a of articles) for (const t of a.tags) if (!seen.has(tagSlug(t))) seen.set(tagSlug(t), t);
+  return [...seen.values()];
+}
+
 export function formatDate(iso: string): string {
   return new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-GB", {
     day: "numeric",
