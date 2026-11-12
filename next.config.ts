@@ -1,8 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   cacheComponents: true,
+  // MDX in /content is read from disk; ship it with the server bundle.
+  outputFileTracingIncludes: {
+    "/**": ["./content/**/*"],
+  },
   partialPrefetching: true,
   turbopack: {
     rules: {
