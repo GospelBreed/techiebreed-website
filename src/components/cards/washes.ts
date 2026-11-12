@@ -1,4 +1,4 @@
-export type Wash = "sage" | "sky" | "butter" | "blush" | "cream" | "mint";
+export type Wash = "sage" | "sky" | "butter" | "blush" | "cream" | "mint" | "white";
 
 /** Background classes for the pastel card washes. */
 export const washBg: Record<Wash, string> = {
@@ -8,6 +8,7 @@ export const washBg: Record<Wash, string> = {
   blush: "bg-blush",
   cream: "bg-cream",
   mint: "bg-mint",
+  white: "bg-white",
 };
 
 export const washCycle: Wash[] = ["sage", "sky", "butter", "blush", "cream", "mint"];

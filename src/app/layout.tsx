@@ -36,7 +36,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en-NG" className={`${geist.variable} ${fraunces.variable} ${dmSans.variable}`}>
       <body className="flex min-h-dvh flex-col">
         <noscript>
-          <style>{".reveal>*{opacity:1!important;translate:none!important}"}</style>
+          <style>{".reveal>*,.hero .hero-copy>*,.hero .hero-b{opacity:1!important;translate:none!important;scale:none!important}"}</style>
         </noscript>
         <Navbar />
         <main id="main" className="flex-1">
