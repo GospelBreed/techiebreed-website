@@ -10,7 +10,7 @@ export const site = {
   description:
     "TechieBreed builds done-for-you systems that automate repetitive work, connect your business tools and help your business grow. Nigeria first, then the UK and US.",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://www.techiebreed.org",
-  academyHubUrl: "https://techiebreed-hub.netlify.app",
+  academyHubUrl: "https://academy.techiebreed.org",
   bookingUrl: process.env.NEXT_PUBLIC_BOOKING_URL || "https://cal.com/techiebreed",
   contact: {
     email: "hello@techiebreed.org",
