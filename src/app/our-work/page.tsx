@@ -5,13 +5,13 @@ import { Section } from "@/components/ui/Section";
 import { CaseStudyCard } from "@/components/cards/CaseStudyCard";
 import { PageHero } from "@/components/sections/PageHero";
 import { CTABand } from "@/components/sections/CTABand";
-import { CaseArt } from "@/components/illustrations/CaseArt";
+import { CaseCover } from "@/components/media/CaseCover";
 import { getCaseStudies } from "@/lib/content";
 
 export const metadata: Metadata = pageMeta({
   title: "Our Work",
   description:
-    "Systems we've built for real businesses: sponsorship acquisition, property operations and automated student enrolment.",
+    "Systems we've built for real businesses: SportConn's AI partnership engine, ROSA for affordable-housing compliance, the Roseway CRM and the TechieBreed Academy hub.",
   path: "/our-work",
 });
 
@@ -33,7 +33,7 @@ export default async function OurWorkPage() {
         {studies.length === 0 ? (
           <p className="text-center text-[17px] text-ink-soft">Case studies are on their way.</p>
         ) : (
-          <Reveal className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          <Reveal className="grid gap-6 md:grid-cols-2">
             {studies.map((cs) => (
               <CaseStudyCard
                 key={cs.slug}
@@ -41,7 +41,7 @@ export default async function OurWorkPage() {
                 client={cs.client}
                 title={cs.title}
                 summary={cs.summary}
-                art={<CaseArt kind={cs.art} />}
+                art={<CaseCover cs={cs} />}
                 headingLevel="h2"
               />
             ))}

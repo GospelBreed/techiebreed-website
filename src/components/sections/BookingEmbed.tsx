@@ -29,7 +29,6 @@ export function BookingEmbed() {
           For now, send us the form on this page and choose &ldquo;AI Operations Audit&rdquo; — we&rsquo;ll reply with times
           that suit you.
         </p>
-        <p className="mt-4 font-mono text-[12px] text-muted">[BOOKING LINK — set NEXT_PUBLIC_BOOKING_URL]</p>
       </div>
     );
   }

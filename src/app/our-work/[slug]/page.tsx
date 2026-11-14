@@ -7,6 +7,9 @@ import { Reveal } from "@/components/ui/Reveal";
 import { CaseStudyCard } from "@/components/cards/CaseStudyCard";
 import { CTABand } from "@/components/sections/CTABand";
 import { CaseArt } from "@/components/illustrations/CaseArt";
+import { CaseCover } from "@/components/media/CaseCover";
+import { CaseVideoPlayer } from "@/components/media/CaseVideoPlayer";
+import { cn } from "@/lib/cn";
 import { FlowDiagram } from "@/components/mdx/FlowDiagram";
 import { Results } from "@/components/mdx/Results";
 import { Prose } from "@/components/mdx/Prose";
@@ -45,8 +48,13 @@ export default async function CaseStudyPage({ params }: PageProps<"/our-work/[sl
   return (
     <>
       <section className="on-dark relative overflow-hidden bg-[radial-gradient(70%_90%_at_50%_45%,var(--color-forest-glow)_0%,var(--color-forest)_62%)] text-white">
-        <div className="container-x grid items-center gap-10 py-14 md:py-20 lg:grid-cols-[1.1fr_1fr]">
-          <Reveal>
+        <div
+          className={cn(
+            "container-x grid items-center gap-10 py-14 md:py-20",
+            !cs.video && "lg:grid-cols-[1.1fr_1fr]",
+          )}
+        >
+          <Reveal className={cs.video ? "max-w-[820px]" : undefined}>
             <Link
               href="/our-work"
               className="group inline-flex items-center gap-2 text-[15px] font-medium text-white/80 hover:text-white"
@@ -60,13 +68,23 @@ export default async function CaseStudyPage({ params }: PageProps<"/our-work/[sl
             </h1>
             <p className="mt-5 max-w-[560px] text-[17px] leading-[1.6] text-white/[0.86]">{cs.summary}</p>
           </Reveal>
-          <Reveal>
-            <div className="overflow-hidden rounded-[24px] bg-white shadow-[0_30px_60px_-30px_rgb(0_0_0/0.5)]">
-              <div className="aspect-[16/10]">
-                <CaseArt kind={cs.art} />
-              </div>
+          {cs.video ? (
+            <div id="walkthrough" className="scroll-mt-24">
+              <CaseVideoPlayer video={cs.video} title={cs.title} />
+              <p className="mt-3 text-[14px] text-white/75">
+                Video walkthrough{cs.video.duration ? ` · ${cs.video.duration}` : ""}
+                {cs.video.captions ? " · Captions available in the player menu" : ""}
+              </p>
             </div>
-          </Reveal>
+          ) : (
+            <Reveal>
+              <div className="overflow-hidden rounded-[24px] bg-white shadow-[0_30px_60px_-30px_rgb(0_0_0/0.5)]">
+                <div className="aspect-[16/10]">
+                  <CaseArt kind={cs.art} />
+                </div>
+              </div>
+            </Reveal>
+          )}
         </div>
       </section>
 
@@ -142,7 +160,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/our-work/[sl
                 client={next.client}
                 title={next.title}
                 summary={next.summary}
-                art={<CaseArt kind={next.art} />}
+                art={<CaseCover cs={next} />}
               />
             </div>
           </div>

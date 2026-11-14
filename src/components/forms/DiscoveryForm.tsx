@@ -29,7 +29,7 @@ export function DiscoveryForm() {
           startOver();
         }}
       >
-        <p>We read every enquiry ourselves and will reply by email within [RESPONSE TIME].</p>
+        <p>We read every enquiry ourselves and will reply by email within 1 hour.</p>
       </FormSuccess>
     );
   }

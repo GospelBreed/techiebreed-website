@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { pageMeta } from "@/lib/metadata";
-import { Check, Mail, MapPin, Phone } from "lucide-react";
+import { Check, Mail, Phone } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
 import { PageHero } from "@/components/sections/PageHero";
 import { BookingEmbed } from "@/components/sections/BookingEmbed";
 import { DiscoveryForm } from "@/components/forms/DiscoveryForm";
-import { isPlaceholder, site } from "@/lib/site";
+import { site } from "@/lib/site";
 
 export const metadata: Metadata = pageMeta({
   title: "Contact",
@@ -28,17 +28,13 @@ const auditIncludes = [
   "What each recommendation would take to build",
 ];
 
-function ContactLine({ icon: Icon, value, href }: { icon: typeof Mail; value: string; href?: string }) {
+function ContactLine({ icon: Icon, value, href }: { icon: typeof Mail; value: string; href: string }) {
   return (
     <li className="flex items-start gap-3 text-[15.5px] text-ink">
       <Icon aria-hidden className="mt-0.5 size-[18px] shrink-0 text-leaf" />
-      {href && !isPlaceholder(value) ? (
-        <a href={href} className="font-medium hover:text-leaf">
-          {value}
-        </a>
-      ) : (
-        <span>{value}</span>
-      )}
+      <a href={href} className="font-medium hover:text-leaf">
+        {value}
+      </a>
     </li>
   );
 }
@@ -88,8 +84,7 @@ export default function ContactPage() {
               <h2 className="font-pill text-[13px] font-bold tracking-[0.06em] text-pine/70 uppercase">Other ways to reach us</h2>
               <ul className="mt-4 space-y-3">
                 <ContactLine icon={Mail} value={site.contact.email} href={`mailto:${site.contact.email}`} />
-                <ContactLine icon={Phone} value={site.contact.phone} href={`tel:${site.contact.phone.replace(/\s+/g, "")}`} />
-                <ContactLine icon={MapPin} value={site.contact.address} />
+                <ContactLine icon={Phone} value={site.contact.phone} href={`tel:${site.contact.phoneE164}`} />
               </ul>
               <a
                 href="#audit"

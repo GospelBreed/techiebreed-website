@@ -16,7 +16,7 @@ import { ProcessTimeline } from "@/components/sections/ProcessTimeline";
 import { ApprovalFlow } from "@/components/sections/ApprovalFlow";
 import { CTABand } from "@/components/sections/CTABand";
 import { ServiceArt } from "@/components/illustrations/ServiceArt";
-import { CaseArt } from "@/components/illustrations/CaseArt";
+import { CaseCover } from "@/components/media/CaseCover";
 import { packages, services } from "@/content-data/services";
 import { industries } from "@/content-data/industries";
 import { processSteps } from "@/content-data/process";
@@ -172,7 +172,7 @@ export default async function HomePage() {
               client={cs.client}
               title={cs.title}
               summary={cs.summary}
-              art={<CaseArt kind={cs.art} />}
+              art={<CaseCover cs={cs} />}
             />
           ))}
         </Reveal>

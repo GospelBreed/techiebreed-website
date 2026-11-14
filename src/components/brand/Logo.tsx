@@ -3,7 +3,7 @@ import { cn } from "@/lib/cn";
 
 /**
  * TechieBreed mark: the circuit-board "T" inside a ring, redrawn as SVG.
- * [LOGO] Swap for the final company logo file when it is ready.
+ * To change the logo, edit this component (and src/app/icon.svg, public/logo.svg).
  */
 export function LogoMark({ tone = "dark", className }: { tone?: "dark" | "light"; className?: string }) {
   const gid = useId();

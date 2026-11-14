@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { pageMeta } from "@/lib/metadata";
-import { ArrowRight, Feather, HeartHandshake, Lightbulb, ShieldCheck, Sprout, UserRound, Users } from "lucide-react";
+import { ArrowRight, Feather, HeartHandshake, Lightbulb, ShieldCheck, Sprout, Users } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -22,13 +22,6 @@ const values = [
   { icon: ShieldCheck, title: "Reliability", text: "We build systems you can count on, and we do what we say we will." },
   { icon: Users, title: "Human-centred technology", text: "Technology should support people and their judgement, not replace them." },
   { icon: Sprout, title: "Growth", text: "We help our clients, our team and our community keep growing." },
-];
-
-// [TEAM MEMBER] Replace with real names, roles, short bios and photos.
-const team = [
-  { name: "[TEAM MEMBER NAME]", role: "[ROLE]" },
-  { name: "[TEAM MEMBER NAME]", role: "[ROLE]" },
-  { name: "[TEAM MEMBER NAME]", role: "[ROLE]" },
 ];
 
 export default function AboutPage() {
@@ -138,30 +131,6 @@ export default function AboutPage() {
             <PillarCard key={v.title} icon={v.icon} title={v.title}>
               {v.text}
             </PillarCard>
-          ))}
-        </Reveal>
-      </Section>
-
-      {/* Team */}
-      <Section tone="mint" aria-labelledby="team-title">
-        <SectionHeading
-          id="team-title"
-          eyebrow="Our team"
-          title={
-            <>
-              The people <em>behind the systems</em>
-            </>
-          }
-        />
-        <Reveal as="ul" className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {team.map((m, i) => (
-            <li key={i} className="flex flex-col items-center rounded-[24px] bg-white p-8 text-center">
-              <span className="grid size-24 place-items-center rounded-full bg-mint text-forest/60" aria-hidden>
-                <UserRound className="size-10" strokeWidth={1.5} />
-              </span>
-              <p className="mt-5 text-[19px] font-bold text-forest">{m.name}</p>
-              <p className="mt-1 text-[15px] text-muted">{m.role}</p>
-            </li>
           ))}
         </Reveal>
       </Section>

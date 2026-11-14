@@ -1,4 +1,4 @@
-import { isPlaceholder, site } from "@/lib/site";
+import { site } from "@/lib/site";
 
 /** Renders schema.org data as JSON-LD. `<` is escaped so content can't close the script tag. */
 export function JsonLd({ data }: { data: Record<string, unknown> }) {
@@ -10,11 +10,11 @@ export function JsonLd({ data }: { data: Record<string, unknown> }) {
   );
 }
 
-/** Organization + WebSite, included on every page. Placeholder values are left out. */
+/** Organization + WebSite, included on every page. */
 export function organizationLd(): Record<string, unknown> {
-  const sameAs = Object.values(site.social).filter((v) => !isPlaceholder(v));
-  const email = isPlaceholder(site.contact.email) ? undefined : site.contact.email;
-  const telephone = isPlaceholder(site.contact.phone) ? undefined : site.contact.phone;
+  const sameAs = Object.values(site.social).filter(Boolean);
+  const email = site.contact.email;
+  const telephone = site.contact.phoneE164;
   const orgId = `${site.url}/#organization`;
 
   return {

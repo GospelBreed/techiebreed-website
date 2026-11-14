@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { cacheLife } from "next/cache";
-import { ArrowUpRight, Mail, MapPin, Phone } from "lucide-react";
+import { ArrowUpRight, Mail, Phone } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
 import { InstagramIcon, LinkedInIcon, XIcon } from "@/components/brand/SocialIcons";
-import { auditCta, isPlaceholder, mainNav, site } from "@/lib/site";
+import { auditCta, mainNav, site } from "@/lib/site";
 import { services } from "@/content-data/services";
 
 const linkClass = "text-[15px] font-medium text-[#e9f3ec] transition-colors duration-300 hover:text-sprout";
@@ -16,7 +16,7 @@ const socials = [
   { label: "LinkedIn", href: site.social.linkedin, Icon: LinkedInIcon },
   { label: "X", href: site.social.x, Icon: XIcon },
   { label: "Instagram", href: site.social.instagram, Icon: InstagramIcon },
-];
+].filter((s) => s.href);
 
 /** Faint line drawing behind the footer: a sprout growing out of a circuit. */
 function FooterArt() {
@@ -120,27 +120,15 @@ export async function Footer() {
             <ul className="space-y-3 text-[15px] text-[#e9f3ec]">
               <li className="flex items-start gap-3">
                 <Mail aria-hidden className="mt-0.5 size-4 shrink-0 text-sprout" />
-                {isPlaceholder(site.contact.email) ? (
-                  <span>{site.contact.email}</span>
-                ) : (
-                  <a href={`mailto:${site.contact.email}`} className={linkClass}>
-                    {site.contact.email}
-                  </a>
-                )}
+                <a href={`mailto:${site.contact.email}`} className={linkClass}>
+                  {site.contact.email}
+                </a>
               </li>
               <li className="flex items-start gap-3">
                 <Phone aria-hidden className="mt-0.5 size-4 shrink-0 text-sprout" />
-                {isPlaceholder(site.contact.phone) ? (
-                  <span>{site.contact.phone}</span>
-                ) : (
-                  <a href={`tel:${site.contact.phone.replace(/\s+/g, "")}`} className={linkClass}>
-                    {site.contact.phone}
-                  </a>
-                )}
-              </li>
-              <li className="flex items-start gap-3">
-                <MapPin aria-hidden className="mt-0.5 size-4 shrink-0 text-sprout" />
-                <span>{site.contact.address}</span>
+                <a href={`tel:${site.contact.phoneE164}`} className={linkClass}>
+                  {site.contact.phone}
+                </a>
               </li>
             </ul>
           </div>
@@ -153,23 +141,15 @@ export async function Footer() {
           <ul className="flex items-center gap-3" aria-label="Social media">
             {socials.map(({ label, href, Icon }) => (
               <li key={label}>
-                {isPlaceholder(href) ? (
-                  <span
-                    title={`${label}: ${href}`}
-                    className="grid size-10 place-items-center rounded-full border border-white/20 text-white/50"
-                  >
-                    <Icon className="size-4" />
-                    <span className="sr-only">{`${label} (link coming soon)`}</span>
-                  </span>
-                ) : (
-                  <a
-                    href={href}
-                    aria-label={`TechieBreed on ${label}`}
-                    className="grid size-10 place-items-center rounded-full border border-white/30 text-white transition-colors duration-300 hover:border-sprout hover:bg-sprout hover:text-on-sprout"
-                  >
-                    <Icon className="size-4" />
-                  </a>
-                )}
+                <a
+                  href={href}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  aria-label={`TechieBreed on ${label} (opens in a new tab)`}
+                  className="grid size-10 place-items-center rounded-full border border-white/30 text-white transition-colors duration-300 hover:border-sprout hover:bg-sprout hover:text-on-sprout"
+                >
+                  <Icon className="size-4" />
+                </a>
               </li>
             ))}
           </ul>

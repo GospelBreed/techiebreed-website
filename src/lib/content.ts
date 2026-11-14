@@ -41,6 +41,16 @@ function stringList(v: unknown): string[] {
 
 export type CaseArt = "pipeline" | "operations" | "enrolment";
 
+export type CaseVideo = {
+  src: string;
+  /** Still image shown before playing; also used as the case study's card cover. */
+  poster: string;
+  /** WebVTT captions file. */
+  captions?: string;
+  /** Human-readable length, e.g. "3 min". */
+  duration?: string;
+};
+
 export type CaseStudy = {
   slug: string;
   title: string;
@@ -50,11 +60,25 @@ export type CaseStudy = {
   industry: string;
   services: ServiceId[];
   art: CaseArt;
+  /** Optional walkthrough video, served from /public (e.g. "/videos/sportconn.mp4"). */
+  video?: CaseVideo;
   flow: string[];
   /** Verified results only. Empty means "Results being measured". */
   results: { label: string; value: string }[];
   body: string;
 };
+
+function toVideo(v: unknown): CaseVideo | undefined {
+  if (!v || typeof v !== "object") return undefined;
+  const o = v as Record<string, unknown>;
+  if (typeof o.src !== "string" || typeof o.poster !== "string") return undefined;
+  return {
+    src: o.src,
+    poster: o.poster,
+    captions: typeof o.captions === "string" ? o.captions : undefined,
+    duration: typeof o.duration === "string" ? o.duration : undefined,
+  };
+}
 
 function toCaseStudy(raw: Raw): CaseStudy {
   const req = (k: string) => requireString("our-work", raw, k);
@@ -74,6 +98,7 @@ function toCaseStudy(raw: Raw): CaseStudy {
     services: stringList(raw.data.services) as ServiceId[],
     art: (raw.data.art as CaseArt) ?? "operations",
     flow: stringList(raw.data.flow),
+    video: toVideo(raw.data.video),
     results,
     body: raw.body,
   };

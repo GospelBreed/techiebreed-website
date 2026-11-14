@@ -1,6 +1,6 @@
 /**
  * Site-wide settings and copy that appear in more than one place.
- * Anything in [SQUARE BRACKETS] is a placeholder still to be supplied.
+ * Leave a social link as "" to hide its icon.
  */
 
 export const site = {
@@ -9,18 +9,20 @@ export const site = {
   tagline: "Less operational pressure. More intelligent growth.",
   description:
     "TechieBreed builds done-for-you systems that automate repetitive work, connect your business tools and help your business grow. Nigeria first, then the UK and US.",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://techiebreed.com",
+  url: process.env.NEXT_PUBLIC_SITE_URL || "https://www.techiebreed.org",
   academyHubUrl: "https://techiebreed-hub.netlify.app",
-  bookingUrl: process.env.NEXT_PUBLIC_BOOKING_URL ?? "",
+  bookingUrl: process.env.NEXT_PUBLIC_BOOKING_URL || "https://cal.com/techiebreed",
   contact: {
-    email: "[EMAIL]",
-    phone: "[PHONE]",
-    address: "[OFFICE ADDRESS]",
+    email: "hello@techiebreed.org",
+    /** Shown on the site. */
+    phone: "+234 816 588 7386",
+    /** Used for tap-to-call and WhatsApp links. */
+    phoneE164: "+2348165887386",
   },
   social: {
-    linkedin: "[LINKEDIN URL]",
-    x: "[X URL]",
-    instagram: "[INSTAGRAM URL]",
+    linkedin: "https://www.linkedin.com/company/techiebreed/",
+    x: "https://x.com/techie_breed",
+    instagram: "https://www.instagram.com/techie_breed",
   },
 } as const;
 
@@ -40,8 +42,3 @@ export const mainNav: NavLink[] = [
   { label: "Insights", href: "/insights" },
   { label: "Contact", href: "/contact" },
 ];
-
-/** True when a placeholder value (e.g. "[EMAIL]") has not been replaced yet. */
-export function isPlaceholder(value: string): boolean {
-  return value.trim() === "" || /^\[.*\]$/.test(value.trim());
-}
