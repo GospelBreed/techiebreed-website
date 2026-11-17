@@ -89,12 +89,15 @@ export async function listFolder(cfg: Config, path: string): Promise<{ name: str
  * Creates or replaces a file in one commit.
  * Pass `sha` when replacing: GitHub refuses the write if the file changed since it was read.
  */
+export type CommitAuthor = { name: string; email?: string };
+
 export async function writeFile(
   cfg: Config,
   path: string,
   content: string,
   message: string,
   sha?: string,
+  author?: CommitAuthor,
 ): Promise<{ commit: string; url: string }> {
   const data = (await gh(cfg, `/contents/${encodePath(path)}`, {
     method: "PUT",
@@ -103,13 +106,37 @@ export async function writeFile(
       content: Buffer.from(content, "utf8").toString("base64"),
       branch: cfg.branch,
       ...(sha ? { sha } : {}),
-      committer: { name: "Claude (website connector)", email: "noreply@techiebreed.org" },
+      committer: author
+        ? { name: "TechieBreed Admin", email: "noreply@techiebreed.org" }
+        : { name: "Claude (website connector)", email: "noreply@techiebreed.org" },
+      ...(author ? { author: { name: author.name, email: author.email ?? "noreply@techiebreed.org" } } : {}),
     }),
   })) as { commit: { sha: string; html_url: string } };
   return { commit: data.commit.sha, url: data.commit.html_url };
 }
 
 export type CommitInfo = { sha: string; message: string; author: string; date: string; url: string };
+
+/** A file's content at a given commit (null if it didn't exist then). */
+export async function readFileAt(cfg: Config, path: string, ref: string): Promise<string | null> {
+  try {
+    const data = (await gh(cfg, `/contents/${encodePath(path)}?ref=${encodeURIComponent(ref)}`)) as { content?: string };
+    return data.content === undefined ? null : Buffer.from(data.content, "base64").toString("utf8");
+  } catch (e) {
+    if (e instanceof GitHubError && e.status === 404) return null;
+    throw e;
+  }
+}
+
+/** Files changed by a commit, and its first parent. */
+export async function commitDetails(cfg: Config, sha: string): Promise<{ parent: string | null; files: { filename: string; status: string }[]; message: string }> {
+  const data = (await gh(cfg, `/commits/${encodeURIComponent(sha)}`)) as {
+    parents: { sha: string }[];
+    files?: { filename: string; status: string }[];
+    commit: { message: string };
+  };
+  return { parent: data.parents[0]?.sha ?? null, files: data.files ?? [], message: data.commit.message };
+}
 
 export async function recentCommits(cfg: Config, limit = 10, path?: string): Promise<CommitInfo[]> {
   const q = new URLSearchParams({ sha: cfg.branch, per_page: String(Math.min(Math.max(limit, 1), 30)) });

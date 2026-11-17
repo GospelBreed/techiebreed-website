@@ -2,15 +2,18 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Menu, UserCog, Users, X, type LucideIcon } from "lucide-react";
+import { Briefcase, FileText, History, LayoutDashboard, Menu, UserCog, Users, X, type LucideIcon } from "lucide-react";
 import { useState } from "react";
 import { LogoMark } from "@/components/brand/Logo";
 import { cn } from "@/lib/cn";
 
-export type NavItem = { href: string; label: string; icon: "dashboard" | "users" | "account" };
+export type NavItem = { href: string; label: string; icon: "dashboard" | "articles" | "cases" | "activity" | "users" | "account" };
 
 const ICONS: Record<NavItem["icon"], LucideIcon> = {
   dashboard: LayoutDashboard,
+  articles: FileText,
+  cases: Briefcase,
+  activity: History,
   users: Users,
   account: UserCog,
 };

@@ -241,35 +241,35 @@ export const TOOLS: Tool[] = [
 /* Helpers                                                             */
 /* ------------------------------------------------------------------ */
 
-const ARTICLES = "content/insights";
-const CASES = "content/our-work";
-const SETTINGS = "content/settings.json";
+export const ARTICLES = "content/insights";
+export const CASES = "content/our-work";
+export const SETTINGS = "content/settings.json";
 
-function cfg() {
+export function cfg() {
   const c = githubConfig();
   if (!c) throw new ToolError("not_configured", "The connector isn't set up: GITHUB_TOKEN and GITHUB_REPO are missing.");
   return c;
 }
 
-function today() {
+export function today() {
   return new Date().toLocaleDateString("en-CA", { timeZone: "Africa/Lagos" });
 }
 
-function liveUrl(path: string) {
+export function liveUrl(path: string) {
   return new URL(path, site.url).toString();
 }
 
-function parseEntry(file: RepoFile) {
+export function parseEntry(file: RepoFile) {
   const { data, content } = matter(file.content);
   return { data: data as Record<string, unknown>, body: content.replace(/^\n+/, "") };
 }
 
-function serialise(data: Record<string, unknown>, body: string) {
+export function serialise(data: Record<string, unknown>, body: string) {
   const clean = Object.fromEntries(Object.entries(data).filter(([, v]) => v !== undefined));
   return matter.stringify(`\n${body.trim()}\n`, clean);
 }
 
-function dateString(v: unknown): string | undefined {
+export function dateString(v: unknown): string | undefined {
   if (v instanceof Date) return v.toISOString().slice(0, 10);
   return typeof v === "string" ? v : undefined;
 }

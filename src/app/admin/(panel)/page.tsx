@@ -206,7 +206,7 @@ function YourAccess({ staff }: { staff: Staff }) {
           </li>
         ))}
       </ul>
-      <p className="mt-3 text-[13px] text-muted">Articles, case studies, enquiries and settings arrive in the next parts of the admin.</p>
+      <p className="mt-3 text-[13px] text-muted">Enquiries and Settings arrive in the next part of the admin.</p>
     </Card>
   );
 }

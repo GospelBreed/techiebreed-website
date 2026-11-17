@@ -22,6 +22,10 @@ async function Panel({ children }: { children: React.ReactNode }) {
   const staff = await requireStaff(undefined, { allowMfaSetup: true });
 
   const items: NavItem[] = [{ href: "/admin", label: "Dashboard", icon: "dashboard" }];
+  if (can(staff.role, "articles.view"))
+    items.push({ href: "/admin/articles", label: staff.role === "author" ? "My posts" : "Articles", icon: "articles" });
+  if (can(staff.role, "cases.view")) items.push({ href: "/admin/case-studies", label: "Case studies", icon: "cases" });
+  if (can(staff.role, "activity.view")) items.push({ href: "/admin/activity", label: "Activity", icon: "activity" });
   if (can(staff.role, "staff.manage")) items.push({ href: "/admin/users", label: "Users", icon: "users" });
   items.push({ href: "/admin/account", label: "My account", icon: "account" });
 
