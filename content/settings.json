@@ -10,5 +10,8 @@
     "instagram": "https://www.instagram.com/techie_breed"
   },
   "bookingUrl": "https://cal.com/techiebreed",
-  "replyTime": "1 hour"
+  "replyTime": "1 hour",
+  "ads": {
+    "enabled": true
+  }
 }

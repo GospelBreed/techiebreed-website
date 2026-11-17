@@ -14,7 +14,7 @@ function when(iso: string) {
 }
 
 /** Content changes made through the admin or the Claude connector can be undone from here. */
-const UNDOABLE = /^(Admin: (publish|update|show|hide)|Website connector: (publish|draft|edit|show|hide|add|update))/;
+const UNDOABLE = /^(Admin: (publish|update|show|hide|settings)|Website connector: (publish|draft|edit|show|hide|add|update))/;
 
 export default async function ActivityPage() {
   const staff = await requireStaff("activity.view");

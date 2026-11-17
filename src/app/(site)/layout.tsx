@@ -2,17 +2,21 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { MobileAuditBar } from "@/components/layout/MobileAuditBar";
 import { JsonLd, organizationLd } from "@/components/seo/JsonLd";
+import { site } from "@/lib/site";
 
 /** Chrome for the public website: header, footer, mobile booking bar, ads and structured data. */
 export default function SiteLayout({ children }: LayoutProps<"/">) {
   return (
     <>
-      {/* Google AdSense (React hoists this into <head>). Public pages only, never the admin. */}
-      <script
-        async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6181959399492699"
-        crossOrigin="anonymous"
-      />
+      {/* Google AdSense (React hoists this into <head>). Public pages only, never the admin.
+          Switched on/off by the Super Admin in Admin → Settings. */}
+      {site.adsEnabled && (
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6181959399492699"
+          crossOrigin="anonymous"
+        />
+      )}
       <noscript>
         <style>{".reveal>*,.hero .hero-copy>*,.hero .hero-b{opacity:1!important;translate:none!important;scale:none!important}"}</style>
       </noscript>

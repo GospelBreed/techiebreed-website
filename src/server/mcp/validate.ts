@@ -119,6 +119,8 @@ export const settingsSchema = z.object({
   }),
   bookingUrl: httpsUrl,
   replyTime: z.string().trim().min(2).max(40),
+  /** Google AdSense on public pages. Only the Super Admin changes this, in the admin. */
+  ads: z.object({ enabled: z.boolean() }).default({ enabled: true }),
 });
 
 export type Settings = z.infer<typeof settingsSchema>;

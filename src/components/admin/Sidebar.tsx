@@ -2,17 +2,25 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Briefcase, FileText, History, LayoutDashboard, Menu, UserCog, Users, X, type LucideIcon } from "lucide-react";
+import { Briefcase, FileText, History, Inbox, LayoutDashboard, Menu, Settings, UserCog, Users, X, type LucideIcon } from "lucide-react";
 import { useState } from "react";
 import { LogoMark } from "@/components/brand/Logo";
 import { cn } from "@/lib/cn";
 
-export type NavItem = { href: string; label: string; icon: "dashboard" | "articles" | "cases" | "activity" | "users" | "account" };
+export type NavItem = {
+  href: string;
+  label: string;
+  icon: "dashboard" | "articles" | "cases" | "enquiries" | "activity" | "settings" | "users" | "account";
+  /** Small count shown next to the label, e.g. new enquiries. */
+  badge?: number;
+};
 
 const ICONS: Record<NavItem["icon"], LucideIcon> = {
   dashboard: LayoutDashboard,
   articles: FileText,
   cases: Briefcase,
+  enquiries: Inbox,
+  settings: Settings,
   activity: History,
   users: Users,
   account: UserCog,
@@ -38,6 +46,12 @@ function NavLinks({ items, onNavigate }: { items: NavItem[]; onNavigate?: () => 
             >
               <Icon aria-hidden className={cn("size-[18px]", active ? "text-lime" : "")} strokeWidth={1.9} />
               {item.label}
+              {item.badge ? (
+                <span className="ml-auto rounded-full bg-sprout px-2 py-0.5 text-[12px] leading-none font-bold text-on-sprout">
+                  {item.badge > 99 ? "99+" : item.badge}
+                  <span className="sr-only"> new</span>
+                </span>
+              ) : null}
             </Link>
           </li>
         );

@@ -40,6 +40,23 @@ Permissions live in one place: `src/server/admin/roles.ts`.
 - If the live version changed while you were editing, Publish asks before replacing it.
 - **Activity** lists every live change, from the admin or from Claude. The Super Admin can undo any of them.
 
+## Enquiries
+
+- Every message from the discovery and Academy forms is **saved in the admin** and also emailed to
+  the team. The email has an "Open it in the admin" link. If email fails, the enquiry is still saved.
+- Bot submissions (the hidden honeypot field) are dropped, not stored.
+- **Support, Admins and the Super Admin** can read enquiries, assign them, add team notes, set the status
+  (New, Replied, Closed, Spam) and download them as a spreadsheet. Only the **Super Admin** can delete one.
+- **Reply by email** opens your own email app (e.g. Zoho) addressed to the person. Then mark it replied.
+
+## Settings
+
+- Contact email, phone, reply time, booking link and social links (Admins and the Super Admin).
+- **Ads on/off** for Google AdSense: Super Admin only. Admins see the current state.
+- Saving commits `content/settings.json` to GitHub; the site updates in about 2 minutes. It can be undone
+  from Activity. If someone else saved first, you're asked to reload instead of overwriting their change.
+- The Claude connector can change contact details and links, but not the ads switch.
+
 ## One-time setup
 
 ### 1. Supabase project

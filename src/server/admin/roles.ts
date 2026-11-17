@@ -42,7 +42,8 @@ export type Permission =
   | "cases.publish"
   | "content.review"
   | "enquiries.view"
-  | "enquiries.manage";
+  | "enquiries.manage"
+  | "enquiries.delete";
 
 const MATRIX: Record<Role, Permission[]> = {
   super_admin: [
@@ -63,6 +64,7 @@ const MATRIX: Record<Role, Permission[]> = {
     "content.review",
     "enquiries.view",
     "enquiries.manage",
+    "enquiries.delete",
   ],
   admin: [
     "dashboard.view",

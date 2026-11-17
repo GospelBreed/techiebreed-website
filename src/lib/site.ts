@@ -2,8 +2,8 @@ import settings from "../../content/settings.json";
 
 /**
  * Site-wide settings and copy that appear in more than one place.
- * Contact details, social links, booking link and reply time live in
- * content/settings.json (editable through the website connector).
+ * Contact details, social links, booking link, reply time and the ads switch live in
+ * content/settings.json (edited in the admin under Settings, or through the website connector).
  * Leave a social link as "" to hide its icon.
  */
 
@@ -21,6 +21,8 @@ export const site = {
   social: settings.social,
   /** Shown after an enquiry: "We'll reply by email within …". */
   replyTime: settings.replyTime,
+  /** Google AdSense on public pages (switched in the admin by the Super Admin). */
+  adsEnabled: settings.ads?.enabled !== false,
 };
 
 export type NavLink = { label: string; href: string; description?: string };

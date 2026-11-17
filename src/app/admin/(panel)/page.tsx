@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { CheckCircle2, CircleAlert, Clock, ExternalLink, FileText, Briefcase, ShieldCheck, Users } from "lucide-react";
+import { CheckCircle2, CircleAlert, Clock, ExternalLink, FileText, Briefcase, Inbox, ShieldCheck, Users } from "lucide-react";
 import { Notice } from "@/components/admin/ui";
 import { recentActivity, type ActivityRow } from "@/server/admin/activity";
 import { requireStaff, type Staff } from "@/server/admin/auth";
 import { can, ROLE_LABEL, ROLE_SUMMARY } from "@/server/admin/roles";
+import { listEnquiries, STATUS_LABEL, STATUS_STYLE, statusCounts } from "@/server/admin/enquiries";
 import { listStaff } from "@/server/admin/staff";
 import { githubConfig } from "@/server/mcp/github";
 import { listArticles, listCases, publishStatus } from "@/server/mcp/tools";
@@ -59,12 +60,15 @@ export default async function DashboardPage({ searchParams }: PageProps<"/admin"
   const github = Boolean(githubConfig());
   const seesContent = can(staff.role, "articles.view") || can(staff.role, "cases.view");
 
-  const [articles, cases, status, activity, team] = await Promise.all([
+  const seesEnquiries = can(staff.role, "enquiries.view");
+  const [articles, cases, status, activity, team, enquiryCounts, latestEnquiries] = await Promise.all([
     github && can(staff.role, "articles.view") ? safe(listArticles) : null,
     github && can(staff.role, "cases.view") ? safe(listCases) : null,
     github && seesContent ? safe(() => publishStatus()) : null,
     can(staff.role, "activity.view") ? safe(() => recentActivity(8)) : null,
     can(staff.role, "staff.manage") ? safe(listStaff) : null,
+    seesEnquiries ? safe(statusCounts) : null,
+    seesEnquiries ? safe(async () => (await listEnquiries(staff, { status: "open" })).rows.slice(0, 5)) : null,
   ]);
 
   const published = articles?.filter((a) => a?.status === "published").length ?? 0;
@@ -95,8 +99,9 @@ export default async function DashboardPage({ searchParams }: PageProps<"/admin"
         <Notice kind="error">Content isn&rsquo;t connected: GITHUB_TOKEN and GITHUB_REPO are missing in Vercel.</Notice>
       )}
 
-      {(articles || cases || team) && (
+      {(articles || cases || team || enquiryCounts) && (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {enquiryCounts && <Stat icon={Inbox} label="New enquiries" value={enquiryCounts.new} sub={`${enquiryCounts.replied} replied, still open`} />}
           {articles && <Stat icon={FileText} label="Articles published" value={published} sub={`${articles.length - published} hidden`} />}
           {cases && <Stat icon={Briefcase} label="Case studies" value={cases.length} />}
           {team && <Stat icon={Users} label="Team members" value={team.length} sub={`${team.filter((t) => t.status === "invited").length} invited`} />}
@@ -156,6 +161,38 @@ export default async function DashboardPage({ searchParams }: PageProps<"/admin"
         )}
       </div>
 
+      {latestEnquiries && (
+        <Card
+          title="Open enquiries"
+          action={
+            <Link href="/admin/enquiries" className="text-[14px] font-semibold text-leaf hover:text-forest">
+              See all
+            </Link>
+          }
+        >
+          {latestEnquiries.length === 0 ? (
+            <p className="text-[14.5px] text-muted">No open enquiries. New messages from the website appear here.</p>
+          ) : (
+            <ul className="divide-y divide-line">
+              {latestEnquiries.map((e) => (
+                <li key={e.id}>
+                  <Link href={`/admin/enquiries/${e.id}`} className="flex items-center justify-between gap-3 py-2.5 text-[14.5px] hover:text-forest">
+                    <span className="min-w-0">
+                      <span className={e.status === "new" ? "block truncate font-bold text-ink" : "block truncate font-medium text-ink"}>{e.name}</span>
+                      <span className="block truncate text-[13px] text-muted">{e.interest ?? (e.kind === "academy" ? "Academy" : "Discovery")}</span>
+                    </span>
+                    <span className="flex shrink-0 items-center gap-3">
+                      <span className={`rounded-full px-2.5 py-0.5 text-[12px] font-semibold ${STATUS_STYLE[e.status]}`}>{STATUS_LABEL[e.status]}</span>
+                      <span className="hidden text-[13px] text-muted sm:inline">{when(e.created_at)}</span>
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
+        </Card>
+      )}
+
       {activity && (
         <Card title="Recent activity">
           {activity.length === 0 ? (
@@ -185,7 +222,7 @@ function YourAccess({ staff }: { staff: Staff }) {
   const areas = [
     { label: "Articles", ok: can(staff.role, "articles.view"), note: can(staff.role, "articles.publish_any") ? "publish any" : can(staff.role, "articles.publish_own") ? "publish your own" : can(staff.role, "articles.edit_any") ? "drafts for review" : "" },
     { label: "Case studies", ok: can(staff.role, "cases.view"), note: can(staff.role, "cases.publish") ? "publish" : "drafts for review" },
-    { label: "Enquiries", ok: can(staff.role, "enquiries.view"), note: "" },
+    { label: "Enquiries", ok: can(staff.role, "enquiries.view"), note: can(staff.role, "enquiries.delete") ? "including delete" : "" },
     { label: "Settings", ok: can(staff.role, "settings.edit"), note: can(staff.role, "settings.ads") ? "including ads" : "" },
     { label: "Users", ok: can(staff.role, "staff.manage"), note: "" },
   ];
@@ -206,7 +243,6 @@ function YourAccess({ staff }: { staff: Staff }) {
           </li>
         ))}
       </ul>
-      <p className="mt-3 text-[13px] text-muted">Enquiries and Settings arrive in the next part of the admin.</p>
     </Card>
   );
 }

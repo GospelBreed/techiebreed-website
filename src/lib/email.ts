@@ -54,7 +54,7 @@ export function enquirySubject(e: Enquiry): string {
   return subject.replace(/[\r\n]+/g, " ").slice(0, 200);
 }
 
-function renderHtml(e: Enquiry): string {
+function renderHtml(e: Enquiry, adminUrl?: string): string {
   const rows = enquiryRows(e)
     .map(
       ([k, v]) =>
@@ -66,16 +66,21 @@ function renderHtml(e: Enquiry): string {
     enquirySubject(e),
   )}</h2><table style="border-collapse:collapse">${rows}</table><p style="color:#68686d;font-size:13px;margin-top:16px">Sent from the website form. Reply to this email to answer ${escapeHtml(
     e.name,
-  )} directly.</p></div>`;
+  )} directly.</p>${
+    adminUrl
+      ? `<p style="font-size:14px;margin-top:8px"><a href="${escapeHtml(adminUrl)}" style="color:#1a7a1e">Open it in the admin</a> to assign it, add notes or mark it replied.</p>`
+      : ""
+  }</div>`;
 }
 
-function renderText(e: Enquiry): string {
+function renderText(e: Enquiry, adminUrl?: string): string {
   return `${enquirySubject(e)}\n\n${enquiryRows(e)
     .map(([k, v]) => `${k}: ${v}`)
-    .join("\n")}\n`;
+    .join("\n")}\n${adminUrl ? `\nOpen it in the admin: ${adminUrl}\n` : ""}`;
 }
 
-export async function sendEnquiry(config: EmailConfig, e: Enquiry): Promise<void> {
+/** `adminUrl` links the email to the enquiry in the admin inbox, when it was saved there. */
+export async function sendEnquiry(config: EmailConfig, e: Enquiry, adminUrl?: string): Promise<void> {
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: { Authorization: `Bearer ${config.apiKey}`, "Content-Type": "application/json" },
@@ -84,8 +89,8 @@ export async function sendEnquiry(config: EmailConfig, e: Enquiry): Promise<void
       to: config.to,
       reply_to: e.email,
       subject: enquirySubject(e),
-      html: renderHtml(e),
-      text: renderText(e),
+      html: renderHtml(e, adminUrl),
+      text: renderText(e, adminUrl),
     }),
     signal: AbortSignal.timeout(10_000),
   });
