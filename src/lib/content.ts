@@ -15,16 +15,18 @@ const CONTENT_DIR = path.join(process.cwd(), "content");
 
 type Raw = { slug: string; data: Record<string, unknown>; body: string };
 
+/** Published entries only: files starting with "_" and entries with `draft: true` are skipped. */
 async function readCollection(dir: string): Promise<Raw[]> {
   const full = path.join(CONTENT_DIR, dir);
   const files = (await fs.readdir(full)).filter((f) => f.endsWith(".mdx") && !f.startsWith("_"));
-  return Promise.all(
+  const entries = await Promise.all(
     files.map(async (file) => {
       const raw = await fs.readFile(path.join(full, file), "utf8");
       const { data, content } = matter(raw);
       return { slug: file.replace(/\.mdx$/, ""), data, body: content };
     }),
   );
+  return entries.filter((e) => e.data.draft !== true);
 }
 
 function requireString(dir: string, raw: Raw, key: string): string {

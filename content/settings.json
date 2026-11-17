@@ -1,0 +1,14 @@
+{
+  "contact": {
+    "email": "hello@techiebreed.org",
+    "phone": "+234 816 588 7386",
+    "phoneE164": "+2348165887386"
+  },
+  "social": {
+    "linkedin": "https://www.linkedin.com/company/techiebreed/",
+    "x": "https://x.com/techie_breed",
+    "instagram": "https://www.instagram.com/techie_breed"
+  },
+  "bookingUrl": "https://cal.com/techiebreed",
+  "replyTime": "1 hour"
+}

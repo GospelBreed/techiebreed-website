@@ -4,6 +4,7 @@ import { useState } from "react";
 import { SelectInput, TextArea, TextInput } from "@/components/ui/FormField";
 import { services } from "@/content-data/services";
 import { companySizes, countries, discoverySchema, interests } from "@/lib/schemas";
+import { site } from "@/lib/site";
 import { useSearchParam } from "@/lib/useSearchParam";
 import { cn } from "@/lib/cn";
 import { FormError, FormSuccess, Honeypot, SubmitButton } from "./FormStatus";
@@ -29,7 +30,7 @@ export function DiscoveryForm() {
           startOver();
         }}
       >
-        <p>We read every enquiry ourselves and will reply by email within 1 hour.</p>
+        <p>We read every enquiry ourselves and will reply by email within {site.replyTime}.</p>
       </FormSuccess>
     );
   }
