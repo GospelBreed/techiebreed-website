@@ -295,7 +295,7 @@ function written(r: { commit: string; url: string }, page: string, extra: Record
 /* Handlers                                                            */
 /* ------------------------------------------------------------------ */
 
-async function listArticles() {
+export async function listArticles() {
   const c = cfg();
   const files = (await listFolder(c, ARTICLES)).filter((f) => f.name.endsWith(".mdx"));
   const items = await Promise.all(
@@ -319,7 +319,7 @@ async function listArticles() {
   return items.filter(Boolean).sort((a, b) => String(b!.date).localeCompare(String(a!.date)));
 }
 
-async function listCases() {
+export async function listCases() {
   const c = cfg();
   const files = (await listFolder(c, CASES)).filter((f) => f.name.endsWith(".mdx"));
   const items = await Promise.all(
@@ -351,7 +351,7 @@ async function readSettings() {
   return { file: f, settings: settingsSchema.parse(JSON.parse(f.content)) };
 }
 
-async function publishStatus(commit?: string) {
+export async function publishStatus(commit?: string) {
   const c = cfg();
   const head = (await recentCommits(c, 1))[0];
   const target = commit?.trim() || head?.sha;

@@ -3,6 +3,8 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { mainNav } from "@/lib/site";
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
   title: "Page not found",
@@ -12,6 +14,9 @@ export const metadata: Metadata = {
 /** Custom 404, in the hero style. */
 export default function NotFound() {
   return (
+    <>
+    <Navbar />
+    <main id="main" className="flex-1">
     <section className="on-dark relative flex min-h-[70vh] items-center overflow-hidden bg-[radial-gradient(70%_90%_at_50%_45%,var(--color-forest-glow)_0%,var(--color-forest)_62%)] text-white">
       <svg
         aria-hidden
@@ -54,5 +59,8 @@ export default function NotFound() {
         </nav>
       </div>
     </section>
+    </main>
+    <Footer />
+    </>
   );
 }
