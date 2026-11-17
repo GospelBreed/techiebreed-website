@@ -58,7 +58,7 @@ export const industries: Industry[] = [
     problem: "Onboarding, payments and learning access handled by hand.",
     solution: "Education management automation",
     examples: [
-      "Payments that enrol students automatically",
+      "Payments that enroll students automatically",
       "Learning access that opens and closes on schedule",
       "Progress tracking for students and staff",
     ],

@@ -100,7 +100,7 @@ export const services: Service[] = [
     useCases: [
       "Operational platforms built around how your team actually works",
       "Customer portals for bookings, requests, payments and updates",
-      "Education platforms with enrolment, payments and learning access",
+      "Education platforms with enrollment, payments and learning access",
       "Industry software for property, services, education and more",
     ],
     wash: "mint",

@@ -51,7 +51,7 @@ export default function AcademyPage() {
             <Button href="#interest" arrow>
               Register your interest
             </Button>
-            <HubLink>Enrol on the student hub</HubLink>
+            <HubLink>Enroll on the student hub</HubLink>
           </>
         }
       />
@@ -113,7 +113,7 @@ export default function AcademyPage() {
             Ready to start, or <em className="text-sun italic">already enrolled?</em>
           </h2>
           <p className="mt-4 max-w-[560px] text-[17px] leading-[1.6] text-[#e8dccf]">
-            Enrolment, payment, lessons and your progress all live on the TechieBreed student hub.
+            Enrollment, payment, lessons and your progress all live on the TechieBreed student hub.
           </p>
           <div className="mt-8">
             <HubLink className="group inline-flex h-[50px] items-center gap-2 rounded-full bg-sprout px-7 font-semibold text-on-sprout transition-[translate,background-color,box-shadow] duration-[350ms] ease-out-soft hover:-translate-y-0.5 hover:bg-sprout-bright hover:shadow-sprout">

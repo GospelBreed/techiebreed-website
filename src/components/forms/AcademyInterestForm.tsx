@@ -6,7 +6,7 @@ import { site } from "@/lib/site";
 import { FormError, FormSuccess, Honeypot, SubmitButton } from "./FormStatus";
 import { useEnquiryForm } from "./useEnquiryForm";
 
-/** Register interest in an Academy programme. Enrolment itself happens on the student hub. */
+/** Register interest in an Academy programme. Enrollment itself happens on the student hub. */
 export function AcademyInterestForm() {
   const { formRef, status, errors, message, onSubmit, clearError, startOver } = useEnquiryForm(academySchema, "academy");
 
@@ -14,7 +14,7 @@ export function AcademyInterestForm() {
     return (
       <FormSuccess title="You're on the list" resetLabel="Register someone else" onReset={startOver}>
         <p>
-          We&rsquo;ll email you when the next cohort opens. Ready to start now? Enrol on the{" "}
+          We&rsquo;ll email you when the next cohort opens. Ready to start now? Enroll on the{" "}
           <a href={site.academyHubUrl} className="font-semibold text-leaf underline underline-offset-4 hover:text-forest">
             student hub
           </a>
