@@ -42,6 +42,14 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en-NG" className={`${geist.variable} ${fraunces.variable}`}>
+      <head>
+        {/* Google AdSense site verification / ads */}
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6181959399492699"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body className="flex min-h-dvh flex-col">
         <noscript>
           <style>{".reveal>*,.hero .hero-copy>*,.hero .hero-b{opacity:1!important;translate:none!important;scale:none!important}"}</style>
