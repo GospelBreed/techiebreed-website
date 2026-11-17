@@ -31,13 +31,23 @@ Permissions live in one place: `src/server/admin/roles.ts`.
 - **Suspending:** suspending someone signs them out and blocks them immediately.
 - **Search engines:** `/admin` is blocked from indexing (`robots.txt`, `X-Robots-Tag`, `noindex`).
 
+## Writing and publishing
+
+- **Drafts** are saved in Supabase. Saving never changes the website.
+- **Publish**, **Hide/Show** and **Undo** commit to GitHub; Vercel updates the site in about 2 minutes.
+- **Editors** submit drafts for review. **Admins** approve and publish them, or send them back with a note.
+- **Authors** write and publish their own blog posts only.
+- If the live version changed while you were editing, Publish asks before replacing it.
+- **Activity** lists every live change, from the admin or from Claude. The Super Admin can undo any of them.
+
 ## One-time setup
 
 ### 1. Supabase project
 1. At https://supabase.com, create a project named **techiebreed-website** in region
    **West EU (Ireland)**, using your usual account.
 2. Go to **SQL Editor → New query**, paste the whole of `supabase/migrations/0001_admin.sql`
-   and click **Run**. It's safe to run again.
+   and click **Run**. Do the same with `0002_content.sql` (drafts for articles and case studies).
+   Both are safe to run again.
 3. Go to **Authentication → Sign In / Providers → Email** and turn **off** "Allow new users to sign up".
 4. Go to **Authentication → Multi-Factor**. Make sure **TOTP (App Authenticator)** is **enabled**.
 5. Go to **Authentication → URL Configuration**:
