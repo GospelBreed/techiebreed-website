@@ -1,6 +1,8 @@
 "use client";
 
+import { useEffect } from "react";
 import { SelectInput, TextArea, TextInput } from "@/components/ui/FormField";
+import { programmes } from "@/content-data/academy";
 import { academySchema, learnerOptions, programmeOptions } from "@/lib/schemas";
 import { site } from "@/lib/site";
 import { FormError, FormSuccess, Honeypot, SubmitButton } from "./FormStatus";
@@ -9,6 +11,14 @@ import { useEnquiryForm } from "./useEnquiryForm";
 /** Register interest in an Academy programme. Enrollment itself happens on the student hub. */
 export function AcademyInterestForm() {
   const { formRef, status, errors, message, onSubmit, clearError, startOver } = useEnquiryForm(academySchema, "academy");
+
+  // The student hub links here as /academy?programme=<id>#interest: pre-select that programme.
+  useEffect(() => {
+    const id = new URLSearchParams(window.location.search).get("programme");
+    const title = programmes.find((p) => p.id === id)?.title;
+    const select = formRef.current?.querySelector<HTMLSelectElement>('select[name="programme"]');
+    if (title && select) select.value = title;
+  }, [formRef, status]);
 
   if (status === "sent") {
     return (
