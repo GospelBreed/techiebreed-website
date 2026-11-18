@@ -8,8 +8,8 @@ export const programmes: Programme[] = [
   },
   {
     id: "ai-in-digital-marketing",
-    title: "AI in Digital Marketing",
-    summary: "Plan, create and run campaigns faster with practical AI tools.",
+    title: "Business Growth with Digital Marketing & AI",
+    summary: "Attract customers, market effectively, use AI in everyday work and manage growth in your business.",
   },
   {
     id: "business-automation-fundamentals",
