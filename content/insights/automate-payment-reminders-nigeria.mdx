@@ -1,0 +1,213 @@
+---
+title: >-
+  How to Automate Payment Reminders in Nigeria: A Practical Setup with Paystack,
+  WhatsApp and Email
+summary: >-
+  How to automate payment reminders in Nigeria: a reminder schedule, Paystack
+  invoices and payment requests, WhatsApp templates, and stopping reminders the
+  moment a customer pays.
+date: '2026-11-19'
+author: TechieBreed team
+tags:
+  - Automation
+  - Small business
+  - AI operations
+  - WhatsApp
+---
+
+If you run a business in Nigeria, you probably know the feeling. The work is done, the invoice has gone out, and now someone has to keep asking for the money. A polite WhatsApp message on the due date. Another one three days later. A phone call the week after. Then someone has to check the bank app, match the transfer to the right customer and update the spreadsheet.
+
+None of that is hard. It's just constant, and it depends on someone remembering. This guide shows you how to automate payment reminders so they go out on time, stop the moment a customer pays, and leave your team to handle only the conversations that need a person. It's written for owners and operations managers, not developers, though we point out where a developer (or a no-code tool) comes in.
+
+## Why manual payment chasing costs more than it looks
+
+Late payment rarely comes from customers who refuse to pay. More often the invoice got buried, the customer meant to pay at the weekend, or nobody sent the reminder because the person who usually does it was busy. Each of those is a system problem, not a customer problem.
+
+The cost shows up in three places:
+
+- **Cash flow.** Money you've earned sits in your customers' accounts instead of yours, so you delay stock purchases or salaries while you wait.
+- **Staff time.** Someone spends hours every week writing reminders, checking bank alerts and updating records by hand.
+- **Relationships.** Reminders sent inconsistently feel personal. One customer gets chased hard while another is forgotten, and an awkward "did you pay?" message goes to someone who paid yesterday.
+
+There's good evidence that making it easy to pay matters as much as reminding. In its [Small Business Insights update of March 2026](https://blog.xero.com/data-insights/small-business-insights-data-late-payment-results/), Xero reported that small businesses using the "pay now" button on their invoices get paid up to twice as fast as those that don't. That figure comes from Xero's own customer data, mostly from markets such as Australia, the UK and the US rather than Nigeria, but the principle carries over: every reminder should include a one-tap way to pay.
+
+## What a good payment reminder system does
+
+Before choosing tools, be clear about the job. A reliable system does five things:
+
+1. **Sends the right message at the right time**, before the due date, on the day and after it, without anyone having to remember.
+2. **Includes a way to pay immediately**, either a payment link or account details unique to that customer.
+3. **Knows when a customer has paid** and stops reminding them straight away.
+4. **Escalates to a person** when automation has done its part, for example when an invoice is 14 days overdue or the customer replies with a question.
+5. **Keeps a record** of what was sent, when and what happened, so your books and your customer history stay accurate.
+
+Point 3 is where most DIY setups fail. Sending scheduled messages is easy. Knowing reliably that the money has arrived is what makes the system safe to leave running.
+
+## Step 1: Write down your current collection process
+
+Spend an hour mapping how money comes in today. Answer these questions on paper:
+
+- How do customers usually pay: card, bank transfer, USSD, cash, POS?
+- Where do invoices live: an accounting tool, a spreadsheet, Paystack, WhatsApp messages?
+- Who sends reminders now, and on which channel?
+- How do you find out that a payment has arrived?
+- What happens when an invoice is very late?
+
+This tells you what to automate first. If most of your customers pay by bank transfer and you match payments by reading bank alerts, reconciliation is your real bottleneck, and reminders alone won't fix it. If you're new to mapping processes like this, our guide to the [signs your business is ready for automation](/insights/signs-your-business-is-ready-for-automation) is a useful starting point.
+
+## Step 2: Choose your reminder schedule and channels
+
+A simple schedule works for most service businesses, schools and B2B suppliers. Adjust the timing to your payment terms.
+
+- **3 days before the due date (email and WhatsApp):** a friendly heads-up with the amount, due date and payment link.
+- **On the due date (WhatsApp):** a short reminder with the payment link.
+- **3 days overdue (WhatsApp and email):** a polite follow-up asking if anything is holding up payment.
+- **7 days overdue (email and WhatsApp):** a firmer message restating the amount and any agreed terms.
+- **14 days overdue (a task for a team member):** a person calls or messages, and the automation stops.
+
+This schedule is a starting point we suggest, not a rule backed by data. Test it, then adjust. A training school collecting instalments might send just one reminder before each instalment date. A wholesaler with 30-day terms might add a reminder at 21 days.
+
+**On WhatsApp:** most Nigerian customers will see a WhatsApp message long before an email. If you send reminders through the WhatsApp Business Platform (the API), any message sent outside the 24-hour window after the customer last wrote to you must use an approved message template. Meta's [template library](https://developers.facebook.com/documentation/business-messaging/whatsapp/templates/template-library) includes payment use cases, such as payment due reminders and overdue payments, and library templates are categorised as utility. Pricing is set per message by Meta and changes from time to time. We cover current costs and policy in our [WhatsApp AI assistant guide](/insights/whatsapp-ai-assistant-for-business-nigeria).
+
+If you only use the free WhatsApp Business app, there's no way to connect it to your invoices so reminders go out on set days. You can still save quick replies so reminders are consistent, but sending them stays manual.
+
+## Step 3: Set up invoices that customers can pay in one tap
+
+### Option A: Paystack Invoices (no code)
+
+If you already use Paystack, its Invoices feature is the quickest start. According to [Paystack's support guide](https://support.paystack.com/en/articles/2130882), you can send a Simple Invoice (customer email, amount and a note) or a Professional Invoice with line items, tax, discounts, due dates and split payments. The customer gets an email and pays through Paystack Checkout. You can also copy the invoice link and share it on WhatsApp.
+
+From the Invoices summary page you can send a reminder, edit the amount, mark an invoice as paid if the customer paid offline, and filter invoices by status (draft, not paid, paid). Paystack doesn't describe a built-in reminder schedule there. Reminders are sent when you trigger them. That's fine for a handful of invoices a week. Beyond that, you'll want the schedule from Step 2 to run on its own.
+
+### Option B: Paystack Payment Requests API (automated)
+
+The same invoices are available through Paystack's [Payment Requests API](https://paystack.com/docs/api/payment-request), which is what lets a system run the schedule for you. The parts that matter:
+
+- **Create a request** with the customer, amount, line items, tax and a `due_date`. By default Paystack emails the customer (`send_notification` is true).
+- **Re-send the notification** with the notify endpoint. Your scheduler calls this on reminder days for any request that is still unpaid.
+- **Check status** by fetching or listing requests, filtered by status and date.
+
+A developer, or a no-code automation tool that can make HTTP requests, can connect this to your scheduler and WhatsApp without a large project.
+
+### Option C: Dedicated virtual accounts for bank-transfer customers
+
+Many Nigerian customers prefer to pay by transfer. The problem is matching each transfer to the right invoice. Paystack's [Dedicated Virtual Accounts](https://paystack.com/docs/payments/dedicated-virtual-accounts/) give each customer their own account number, and transfers to it "will automatically be recorded as transactions from that customer". Your reminder can then include that customer's personal account number instead of your main business account.
+
+Be aware of the conditions. Paystack says the feature is only for registered businesses in Nigeria and Ghana that have completed its go-live process, some business categories must validate customers' identity first, and accounts should only be created with the customer's express consent. Payment notifications arrive by webhook (see Step 4).
+
+**Flutterwave users** can follow the same approach. Flutterwave sends a `charge.completed` webhook when a payment is made and, in its [webhook documentation](https://developer.flutterwave.com/v3.0/docs/webhooks), recommends re-querying its API to verify the transaction before giving value.
+
+## Step 4: Stop reminders the moment a customer pays
+
+This step separates a professional system from an embarrassing one. Nobody wants a "your payment is overdue" message an hour after they've paid.
+
+Paystack tells your system about payments through [webhooks](https://paystack.com/docs/payments/webhooks), which are automatic notifications sent to a web address you control. The relevant events are:
+
+- `paymentrequest.pending`: a payment request has been sent to a customer
+- `paymentrequest.success`: a payment request has been paid
+- `charge.success`: a successful charge, including transfers into a dedicated virtual account
+
+When your system receives a payment event, it should mark the invoice as paid, cancel any reminders still scheduled for it, send a thank-you or receipt, and update your accounting record.
+
+Two technical points to pass to whoever builds it:
+
+1. **Verify every webhook.** Paystack signs each one with an `x-paystack-signature` header, an HMAC SHA512 signature made with your secret key. Requests that don't match should be ignored, otherwise anyone could fake a "paid" event.
+2. **Acknowledge quickly.** Return a 200 OK straight away and do the slower work afterwards. If Paystack doesn't get a 200, it retries, and in live mode that's every 3 minutes for the first four tries, then hourly for 72 hours. Your system should handle the same event arriving twice without sending two receipts.
+
+As a safety net, run a daily check of unpaid requests through the API before sending the day's reminders, so a missed webhook never results in a wrong reminder.
+
+## Step 5: Write reminders customers don't mind receiving
+
+Good reminders are short, specific and easy to act on. Every one should include the customer's name, what the payment is for, the amount, the due date and the payment link or account number. Add one line on how to reach a person if something is wrong.
+
+An example before the due date:
+
+> Hi Tunde, a quick reminder that invoice INV-0142 for ₦185,000 (October maintenance) is due on Friday 28 November. You can pay here: [link]. If anything looks wrong, reply to this message and Ada will help.
+
+And after it:
+
+> Hi Tunde, invoice INV-0142 for ₦185,000 was due on 28 November and is still showing as unpaid on our side. You can pay here: [link]. If you've already paid, or need to agree a different date, just reply and we'll sort it out.
+
+Vary the wording for long-standing customers, and never send a threatening message automatically. Anything firm should come from a person who knows the relationship.
+
+**Data protection:** you're processing customers' names, phone numbers and payment details. The Nigeria Data Protection Act 2023 applies, so only message customers about their own invoices, store data securely, give access only to staff who need it, and keep a clear record of what your system sends. If you're unsure about your obligations, get advice from a qualified data protection professional.
+
+## Step 6: Hand over to a person at the right point
+
+Automation should do the predictable work and pass the rest on. Create a task for a named team member when:
+
+- an invoice reaches your final automated reminder (14 days overdue in the schedule above)
+- a customer replies to a reminder with a question or dispute
+- a payment arrives for a different amount from the invoice
+- a high-value invoice goes overdue
+
+A task in your CRM or project tool, with the invoice details attached, means the person picking it up doesn't have to dig through messages first. Connecting your payment provider, messaging and CRM like this is the kind of work covered by [business systems and integrations](/what-we-do#integrations).
+
+## An illustrative example: a training school collecting instalments
+
+*This is an illustrative walkthrough, not a client case study.*
+
+A Lagos training school lets students pay fees in three instalments. Before automating, an administrator kept a spreadsheet, sent WhatsApp reminders by hand and checked the bank app every morning to see who had paid.
+
+With an automated system:
+
+1. When a student enrols, the system creates three Paystack payment requests, one for each instalment, each with its own due date.
+2. Three days before each due date, the student gets an email from Paystack and a WhatsApp utility template message with the payment link.
+3. When the student pays, the `paymentrequest.success` webhook marks that instalment as paid, cancels its remaining reminders and sends a receipt.
+4. If an instalment is still unpaid seven days after the due date, the system creates a task for the administrator to call the student.
+5. Every Monday, the owner receives a summary of collected, pending and overdue fees.
+
+The administrator's job changes from chasing everyone to calling the few students who need a conversation. The same pattern works for off-plan property payment plans, which we cover in our guide to [real estate lead follow-up automation](/insights/real-estate-lead-follow-up-automation-nigeria), and for monthly retainers, school fees and subscriptions.
+
+## Tools and approaches compared
+
+- **Paystack Invoices dashboard.** Good for a few invoices a week with no technical help. The limit: reminders are triggered by hand.
+- **Accounting software with built-in reminders.** Good if you already invoice from accounting software. Check whether it supports WhatsApp and naira payment links.
+- **No-code automation (a scheduler, the Paystack API and a WhatsApp provider).** Good for growing volume, custom schedules and several channels. It needs careful setup, testing and someone to maintain it.
+- **A custom-built system.** Good for high volume, instalments, several payment methods and reporting. It costs more upfront and needs a reliable builder.
+
+Before choosing a tool, ask whether it can:
+
+- receive payment webhooks, so reminders stop automatically
+- send WhatsApp template messages through an approved provider, not just email
+- handle part-payments and instalments the way your business does
+- log every message and payment for your records
+
+## Mistakes to avoid
+
+- **Reminding without checking payment status first.** This is the fastest way to annoy good customers.
+- **Sending reminders without a payment link.** Every extra step gives the customer a reason to put it off.
+- **Using your main business account for every transfer.** Reconciliation becomes guesswork. Use unique references or dedicated accounts.
+- **Automating the hard conversations.** Disputes, hardship and long-overdue debts need a person.
+- **Never reviewing the schedule.** Check monthly which reminder customers usually pay after, and adjust.
+- **Skipping webhook security.** An unverified webhook endpoint is a real risk to your records.
+
+## Frequently asked questions
+
+### Can Paystack send automatic payment reminders?
+
+Paystack lets you send a reminder for an unpaid invoice from the Invoices dashboard, or re-send the payment request notification through the API. Its documentation doesn't describe a built-in reminder schedule, so to send reminders automatically on set days you connect the API to a scheduler or automation tool.
+
+### Can I send payment reminders on WhatsApp automatically?
+
+Yes, through the WhatsApp Business Platform (API), usually via a provider. Messages sent outside the 24-hour customer service window must use an approved template, and Meta's template library includes payment reminder use cases in the utility category. The free WhatsApp Business app can't be connected to your invoices to send reminders automatically.
+
+### How many payment reminders should I send?
+
+There's no universal number. A common pattern is one before the due date, one on the day and two afterwards before a person takes over. Track which reminder customers usually pay after, and cut any that don't make a difference.
+
+### How do I automatically match bank transfers to invoices?
+
+Give each customer a unique way to pay: a payment link tied to the invoice, or a dedicated virtual account number. Payments then arrive with the customer already identified, and your system can mark the invoice as paid from the webhook without anyone reading bank alerts.
+
+### Do I need a developer to automate payment reminders?
+
+Not always. Paystack Invoices needs no code, and no-code automation tools can connect a scheduler, the Paystack API and a WhatsApp provider. You'll want technical help for webhook security, instalments and part-payments, and for connecting your accounting software.
+
+## Where to go from here
+
+Automated payment reminders are one of the most practical first automations for a Nigerian business. The rules are clear, the tools exist, and you can see quickly whether it's working. Start by mapping your collection process, pick a schedule, make every reminder payable in one tap, and make sure reminders stop the moment a customer pays.
+
+**Want to build this yourself?** In [Business Automation Fundamentals](/academy#interest) at TechieBreed Academy, you learn to spot repetitive work like payment chasing and automate it step by step over four weeks: live weekend sessions, then weekday practice on your own business. Register your interest on the [Academy page](/academy#interest), or go straight to the [student hub](https://academy.techiebreed.org) to enrol.
+
+**Prefer to have it built for you?** TechieBreed designs and builds [reminder and follow-up automations](/what-we-do#automation) connected to the payment, messaging and accounting tools you already use. If you're not sure where to start, an [AI Operations Audit](/contact#audit) shows which manual work, collections included, is costing your team the most time. You can read [what happens in an audit](/insights/what-happens-in-an-ai-operations-audit) first.
