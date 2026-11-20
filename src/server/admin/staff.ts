@@ -1,5 +1,6 @@
 import "server-only";
 import { headers } from "next/headers";
+import { site } from "@/lib/site";
 import { logActivity } from "./activity";
 import type { Staff } from "./auth";
 import { sendAdminEmail } from "./mail";
@@ -13,8 +14,14 @@ export const MIN_PASSWORD = 10;
 const LOCK_AFTER = 5;
 const LOCK_MINUTES = 15;
 
-/** The address people reached this server on (so local and live links both work). */
+/**
+ * Origin for links in invite and reset emails. In production it is always the
+ * site's own address — never taken from request headers, which a caller could
+ * set to send someone a reset link pointing at another site. Locally it follows
+ * the address the dev server was reached on.
+ */
 export async function appOrigin(): Promise<string> {
+  if (process.env.NODE_ENV === "production") return new URL(site.url).origin;
   const h = await headers();
   const host = h.get("x-forwarded-host") ?? h.get("host") ?? "www.techiebreed.org";
   const proto = h.get("x-forwarded-proto") ?? (host.startsWith("localhost") ? "http" : "https");
