@@ -1,0 +1,237 @@
+---
+title: >-
+  How to Start Email Marketing for a Small Business in Nigeria: Setup, Consent,
+  Automation and AI
+summary: >-
+  How to start email marketing for a small business in Nigeria: send from your
+  domain, set up SPF, DKIM and DMARC, collect consent the NDPA expects, automate
+  a welcome sequence, use AI and measure sales.
+date: '2026-11-20'
+author: TechieBreed team
+tags:
+  - Digital marketing
+  - Small business
+  - Automation
+  - Sales systems
+---
+
+Most Nigerian small businesses already collect email addresses. They sit in a Paystack dashboard, an old order spreadsheet, a Google Form from last year's event or the "email" column nobody looks at in the CRM. What is usually missing is the system around them: permission to market, a way to send that actually reaches the inbox, a few automated emails that do the selling while you work, and a way to tell whether any of it made money.
+
+This guide shows you how to start email marketing for a small business in Nigeria properly, in the order that matters. It covers setting up a sender address that inboxes trust, choosing a tool, collecting consent the way Nigerian law now expects, writing a welcome sequence that runs on its own, using AI without sounding like everyone else, and measuring sales rather than vanity numbers. It is written for owners, marketers and the person on the team who has been told to "start sending newsletters".
+
+## Why email still earns its place next to WhatsApp and Instagram
+
+In Nigeria, WhatsApp is where conversations happen and Instagram is where people discover you. Email does a different job, and that is why it is worth adding rather than replacing anything.
+
+**You own the list.** An Instagram account can be restricted and a WhatsApp number can be banned. A list of people who agreed to hear from you, stored in your own tool, stays yours.
+
+**It suits things people want to keep.** Price lists, course outlines, receipts, booking details, guides, invoices. People search their inbox for these weeks later.
+
+**It automates cleanly.** A welcome series, a reminder before an event, a "how is the product working for you?" message after a purchase: once set up, these run for every new subscriber without anyone remembering to send them.
+
+**It reaches people outside the chat.** Corporate buyers, diaspora customers and professional clients often prefer email for anything formal.
+
+The catch is that email has rules, both technical and legal, and most of the "my emails go to spam" stories come from skipping them. The steps below put those rules first.
+
+## What you need before you send anything
+
+You need four things in place:
+
+1. **A domain email address**, such as hello@yourbusiness.com.ng, not a Gmail or Yahoo address.
+2. **An email marketing tool** that handles sign-up forms, sending, unsubscribes and automation.
+3. **Consent** from the people you will email, recorded somewhere you can find it.
+4. **A reason for people to join**: something useful they get by subscribing.
+
+The rest of the guide takes them one at a time.
+
+## Step 1: Send from your own domain, not Gmail
+
+If your business already has a website, you almost certainly have a domain. Use it for email marketing.
+
+Sending marketing campaigns "from" a free Gmail address through a marketing tool tends to fail. Google's [email sender guidelines](https://support.google.com/mail/answer/81126) warn senders not to impersonate Gmail From: headers and say Gmail applies a DMARC quarantine policy, which means messages claiming to come from @gmail.com but sent by another service are likely to be filtered. The same guidelines list using an @gmail.com address as the display name for bulk email as a deceptive practice.
+
+A domain address also helps people recognise you. "Ada at Ada's Bakery" from ada@adasbakery.ng looks like a business. A string of numbers at gmail.com looks like a stranger.
+
+## Step 2: Choose an email marketing tool you can grow with
+
+You don't need an expensive platform to start. You need one that can do five things: host a sign-up form, store contacts with their consent, send campaigns, run a simple automation (such as a welcome series), and handle unsubscribes automatically.
+
+Two tools with free plans are worth a look, and both have changed their limits recently, so check before you commit:
+
+- **Brevo** lets you send up to 300 emails a day on its free plan, according to its [help centre](https://help.brevo.com/hc/en-us/articles/208580669). Its pricing is based on emails sent rather than contacts stored, which suits businesses with a large list that send occasionally. Free-plan emails carry Brevo's branding.
+- **MailerLite**'s [free plan](https://www.mailerlite.com/free-plan) covers up to 250 subscribers and 2,500 emails a month. That is enough for a business just starting a list, not for one importing thousands of past customers.
+
+Other well-known tools such as Mailchimp, Kit and GetResponse work too. Whichever you pick, check three things for Nigeria specifically: whether you can pay for it (most charge in US dollars, so confirm your card's international spending limits), whether it connects to what you already use (your website, Paystack or Selar store, Google Forms or CRM), and whether it lets you send a plain, mostly-text email. Simple emails tend to look more personal and load faster on mobile data.
+
+Start on the free plan, prove that the list works, and upgrade when the limits genuinely get in the way.
+
+## Step 3: Set up SPF, DKIM and DMARC (it's less scary than it sounds)
+
+These three DNS records tell inboxes that your marketing tool is allowed to send email for your domain. They are the main thing standing between "sent" and "delivered".
+
+- **SPF** lists the services allowed to send email for your domain.
+- **DKIM** adds a digital signature that proves the email wasn't altered and really came from your domain.
+- **DMARC** tells receiving servers what to do with email that fails those checks, and lets you receive reports.
+
+Google requires every sender to Gmail accounts to set up SPF or DKIM, and anyone sending more than 5,000 messages a day to Gmail to set up SPF, DKIM and DMARC, plus one-click unsubscribe for marketing email. Those rules have applied since 1 February 2024, according to Google's [sender guidelines](https://support.google.com/mail/answer/81126). Microsoft followed for Outlook.com, Hotmail and Live addresses: its [announcement](https://techcommunity.microsoft.com/blog/outlook/strengthening-email-ecosystem-outlook%E2%80%99s-new-requirements-for-high%E2%80%90volume-senders/4399730) set out SPF, DKIM and DMARC requirements for domains sending over 5,000 emails a day, with non-compliant messages first routed to Junk from May 2025.
+
+You are probably nowhere near 5,000 emails a day. Set all three up anyway. Google itself recommends SPF, DKIM and DMARC for every domain, and doing it now means you never have to fix deliverability in a panic later.
+
+In practice, your email tool gives you the exact records to copy. You paste them into the DNS settings wherever your domain is managed (your registrar or hosting provider), then click "verify" in the tool. A basic DMARC record with a policy of "none" is a fine starting point. If you have never touched DNS, this is a short job for whoever built your website.
+
+Two more habits from the same guidelines: keep your spam-complaint rate low (Google says below 0.1%, and never 0.3% or higher, measured in its free Postmaster Tools), and increase your sending volume gradually rather than suddenly emailing your whole archive of old contacts.
+
+## Step 4: Build your list with clear, recorded consent
+
+This is where many Nigerian businesses get it wrong, and the law has caught up.
+
+The Nigeria Data Protection Act 2023 gives people the right to object at any time to their data being processed for direct marketing, and section 36 says that once someone objects, their data must no longer be processed for that purpose. A Federal High Court case shows how this works in real life. In *Araka v. Ecart Internet Services Ltd & Eat 'n' Go Ltd*, as summarised in this [analysis by T&A Legal](https://tundeadisa.com/wp-content/uploads/2025/09/Key-Lessons-for-E-Commerce-Businesses-from-the-Case-of-Chukwunweike-Akosa-Araka-v.-Ecart-Internet-Services-Limited-Eat-%E2%80%98n-Go-Limited.pdf), a customer's phone number was shared with Domino's Pizza to deliver a food order and was then used for promotional messages he had not agreed to. The court held that including an opt-out in the messages did not fix the missing consent, ordered the marketing to stop and his data to be erased, and awarded him ₦3 million in damages. The same analysis notes that the NDPC's General Application and Implementation Directive (GAID) 2025 treats consent as the only lawful basis for direct marketing.
+
+The practical lesson for email: **a customer's email address collected for an order, an invoice or a delivery is not permission to send them promotions.** You need to ask.
+
+Good, legitimate ways to grow a list:
+
+- **A sign-up form on your website** with a clear promise: "Get our monthly price list and new arrivals. One email a month. Unsubscribe any time."
+- **A tick box at checkout** (unticked by default) that says what they'll get. Google's guidelines also advise against pre-ticked opt-in boxes.
+- **Lead ad forms** that say plainly how you'll contact people. If you run Facebook or Instagram lead ads, our guide to [automating lead ads follow-up](/insights/automate-facebook-lead-ads-follow-up) shows how to send each new lead into your email tool automatically.
+- **Your Google Business Profile, WhatsApp status and Instagram bio**, linking to the sign-up form. Our [Google Business Profile guide](/insights/google-business-profile-nigeria) covers the profile side.
+- **Events and walk-in customers**, with a QR code to the form rather than a paper list someone types up later.
+- **Existing customers**, by inviting them where you already talk to them (at the counter, on a packaging insert with a QR code, or in a WhatsApp status) rather than by emailing your old order list. Only those who sign up go on the marketing list.
+
+Give people a reason to join. A useful guide, a price list, early access to new stock, a class schedule or a discount on the next order all work better than "subscribe to our newsletter".
+
+Two technical settings help here. Turn on **double opt-in** (the tool sends a confirmation email before adding someone), which matches Google's advice to confirm each address before subscribing it, and make sure your tool **records the date and source of each sign-up**. If anyone ever asks how they got on your list, you can answer.
+
+Keep marketing and transactional email apart, too. Receipts, payment reminders and order updates are service messages people expect. Google's guidelines advise against mixing promotions into receipt messages. Our article on [automating payment reminders](/insights/automate-payment-reminders-nigeria) covers that service side.
+
+## Step 5: Write a welcome sequence that runs on its own
+
+If you set up only one automation, make it this one. A new subscriber has just raised their hand. They will rarely be more interested than they are today.
+
+A simple three-email welcome sequence:
+
+**Email 1, immediately: deliver the promise.** Thank them, give them what they signed up for (the price list, the guide, the discount code) and tell them what to expect: how often you'll email and what about. Keep it short.
+
+**Email 2, two or three days later: show who you are.** Explain what makes your business different, share one genuinely useful tip, or answer the question every new customer asks. A short story from the founder works well here.
+
+**Email 3, five to seven days later: make one clear offer.** Point to your best-selling product, the next class intake or a booking link. One call to action, not five.
+
+In your tool, this is a single automation: trigger "subscriber joins list", then email, wait, email, wait, email. Add a rule to **remove people from the sequence if they buy**, so a new customer doesn't get "Still thinking about it?" the day after paying. That stop rule is what separates good automation from annoying automation.
+
+After the welcome sequence, people move on to your regular emails.
+
+## Step 6: Plan a regular rhythm you can keep
+
+Consistency beats volume. Pick a rhythm your team can sustain, whether that's every two weeks or once a month, and stick to it.
+
+A simple monthly plan for a small business:
+
+- **One value email**: a tip, a guide, a behind-the-scenes look, an answer to a common customer question.
+- **One offer email**: new stock, a seasonal promotion, the next intake or booking slots.
+- **Event-driven extras** when they matter: Black Friday, Detty December, back-to-school or the start of a new quarter for B2B clients.
+
+Then use **segments** so not everyone gets everything. Even two segments help: people who have bought from you and people who haven't. Product interest, location (Lagos versus Abuja, Nigeria versus diaspora) and how recently someone clicked are the next useful splits. Most email tools support this, and it costs nothing but a field on your sign-up form.
+
+## Step 7: Use AI to speed up the work, not to replace your voice
+
+AI tools are genuinely useful for email marketing, provided a person who knows the business stays in charge.
+
+Good uses:
+
+- **Drafting from your notes.** Paste your bullet points (the offer, the deadline, who it's for) and ask for a short, friendly email in plain Nigerian English. Then edit it so it sounds like you.
+- **Subject line options.** Ask for ten, pick two, and test them against each other if your tool supports A/B testing.
+- **Repurposing.** Turn last week's Instagram carousel or blog post into an email, or a long email into three WhatsApp status updates.
+- **Planning.** Ask for a 12-week content calendar based on your customers' common questions, then cut what doesn't fit.
+- **Reviewing.** Ask it to check a draft for unclear sentences, a missing call to action or a tone that sounds too pushy.
+
+Watch-outs:
+
+- **Check every fact, price and date.** AI tools can state wrong prices and invented details with complete confidence.
+- **Don't paste customer lists or personal data into consumer AI tools.** Work with your offer and your copy, not your subscribers' details.
+- **Keep it human.** Emails that read like every other AI-written newsletter get ignored. Your stories, your customers' real questions and your opinions are what make people open the next one.
+
+Several email tools now have AI writing assistants built in. They're convenient, but the same rules apply.
+
+## Step 8: Measure clicks, replies and sales, not just opens
+
+Most tools put the open rate at the top of every report. Treat it with caution. Apple's [Mail Privacy Protection](https://www.apple.com/legal/privacy/data/en/mail-privacy-protection/) downloads remote content in the background when an email arrives, whether or not the person engages with it, which can make opens look higher than they are. Google says in its sender guidelines that it doesn't track open rates and that low open rates aren't necessarily a sign of deliverability problems.
+
+Better measures:
+
+- **Clicks**: how many people clicked a link in the email.
+- **Replies**: for small businesses, a reply is often the best signal of all. Invite them.
+- **Sales or bookings from email**: add UTM tags to your links (for example `?utm_source=newsletter&utm_medium=email&utm_campaign=november-offer`) so your website analytics shows which email brought the visit, and ask new customers how they heard about you.
+- **Unsubscribes and spam complaints**: a few unsubscribes are healthy. A spike means the email missed the mark or went to the wrong segment.
+- **List growth**: new subscribers per month, by source, so you know which sign-up channel works.
+
+Review these once a month in a simple sheet. Within a quarter you'll have a much clearer picture of which kinds of email make money for your business.
+
+## A real example: automation that brings customers back
+
+Monisnap, a Paris-based money transfer company that helps people in France and Europe send money abroad, is one of Brevo's published [customer stories](https://www.brevo.com/success-stories/monisnap/). It's a vendor case study, so read it as such, but the method is useful for any business with repeat customers.
+
+According to the story, Monisnap built more than 20 automated scenarios across email, SMS and push notifications, using data about each customer's behaviour to segment them and tailor messages. One scenario targets recent customers who haven't made a second transfer: they receive a promotional email with a discount on their next transfer, and if they haven't opened it after 48 hours, an automated SMS follows. Brevo reports that Monisnap's customer retention rose by 40% and that money transfer transactions through this channel tripled, three years after the company adopted the platform.
+
+The lesson for a Nigerian business isn't the tool. It's the structure: know where each customer is in their journey, automate the message that moves them to the next step, and use a second channel when the first one is ignored. For Nigerian customers, that second channel is often WhatsApp, which has its own consent and template rules (our [Click-to-WhatsApp ads guide](/insights/click-to-whatsapp-ads-nigeria) explains them).
+
+## An illustrative example: a Lagos skincare brand
+
+*This is an illustrative walkthrough, not a client case study or a real result.*
+
+A small skincare brand in Lagos sells through Instagram, WhatsApp and a simple online store. It has 1,800 email addresses from past orders but has never asked anyone for marketing consent.
+
+It starts on a free plan, sets up hello@ on its domain with SPF, DKIM and DMARC, and adds a sign-up form to its website and Instagram bio offering a free routine guide for different skin types. Rather than importing the 1,800 past customers, it puts a QR code to the form on a card in every delivery package and posts the guide on its WhatsApp status, and only people who sign up through the form join the list.
+
+New subscribers get a three-email welcome sequence: the guide, the founder's story and the reason behind the ingredients, then the best-selling bundle. Anyone who buys leaves the sequence. After that, the brand sends one tips email and one offer email a month, split into "bought before" and "not yet bought", with UTM-tagged links.
+
+At the end of the quarter, it reads its sheet rather than its open rates: which emails were clicked, which links produced orders, and which sign-up source brought the most buyers. Nothing here required custom code. It required a domain, a tool, consent and a plan the team could keep.
+
+## Common mistakes to avoid
+
+**Uploading every contact you've ever collected.** Without consent, it's a legal risk under the NDPA and a fast way to spam complaints and poor deliverability.
+
+**Sending from a Gmail address.** Use your domain and authenticate it.
+
+**Skipping SPF, DKIM and DMARC.** Missing authentication is one of the most common reasons good emails land in spam.
+
+**Buying email lists.** Google's guidelines tell senders not to purchase email addresses, and the people on them never agreed to hear from you.
+
+**Sending only promotions.** If every email is "buy now", people stop opening. Mix in useful content.
+
+**Making unsubscribing hard.** One click, honoured immediately. It's what the law expects, and it protects your sender reputation.
+
+**Judging success by opens.** Track clicks, replies and sales.
+
+## Frequently asked questions
+
+### Is email marketing effective in Nigeria?
+
+It can be, especially for businesses with repeat customers, higher-value products, B2B clients, training and education, and diaspora audiences. It works best alongside WhatsApp and social media, not instead of them: social media finds people, email keeps them.
+
+### What is the best email marketing tool for a small business in Nigeria?
+
+There isn't a single best tool. Brevo and MailerLite both have free plans that suit beginners, with different limits. Choose based on how you can pay, what it connects to and how many contacts and emails you need, and check current pricing on the vendor's own site, since free plans have changed often.
+
+### Can I send marketing emails from my Gmail address?
+
+It's not recommended. Gmail's sender guidelines warn against impersonating Gmail addresses, and marketing tools sending "from" @gmail.com are likely to be filtered. Use an address on your own domain.
+
+### Do I need consent to send marketing emails in Nigeria?
+
+Yes. The Nigeria Data Protection Act 2023 gives people the right to object to direct marketing at any time, and a Federal High Court decision in *Araka v. Ecart & Eat 'n' Go* found a business liable for sending marketing messages without consent, even though the messages had an opt-out. Collect clear consent, record it and honour unsubscribes. This article isn't legal advice; speak to a data protection professional about your situation.
+
+### How often should a small business send marketing emails?
+
+Often enough to stay remembered and rarely enough that every email is worth opening. For many small businesses that's every two to four weeks, plus automated emails such as a welcome sequence.
+
+### Can AI write my marketing emails?
+
+AI can draft, suggest subject lines, repurpose content and check your writing. A person should still check every fact, add the business's real voice and decide what gets sent.
+
+## Learn to run it, or have it set up for you
+
+Email marketing is a small system: a trusted sender, a consented list, a few automations and a monthly review. Get those right and it keeps working quietly while you focus on the business.
+
+If you'd like to learn to do this yourself, **Business Growth with Digital Marketing & AI** at TechieBreed Academy is the programme for it. Over four weeks of weekend live sessions and weekday practice on your own business, you work on attracting customers, marketing effectively and using AI in your everyday work. [Register your interest](/academy#interest) to hear when the next cohort opens, or go straight to the [student hub](https://academy.techiebreed.org).
+
+If you'd rather have it built, TechieBreed sets up the connected version: sign-up forms that feed your CRM, welcome and follow-up automations that stop when someone buys, and reporting that ties emails to sales. See our [workflow automation](/what-we-do#automation) and [sales and revenue systems](/what-we-do#sales) work, or [book an AI Operations Audit](/contact#audit) and we'll show you where your leads and customers are slipping away.
