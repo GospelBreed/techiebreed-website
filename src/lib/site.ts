@@ -23,6 +23,8 @@ export const site = {
   replyTime: settings.replyTime,
   /** Google AdSense on public pages (switched in the admin by the Super Admin). */
   adsEnabled: settings.ads?.enabled !== false,
+  /** Google Analytics 4 measurement id (G-…); visitor tracking is off when empty. */
+  gaMeasurementId: /^G-[A-Z0-9]{4,20}$/.test(process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID?.trim() ?? "") ? process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID!.trim() : null,
 };
 
 export type NavLink = { label: string; href: string; description?: string };

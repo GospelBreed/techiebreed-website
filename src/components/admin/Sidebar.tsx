@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Briefcase, FileText, History, Inbox, LayoutDashboard, Menu, Settings, UserCog, Users, X, type LucideIcon } from "lucide-react";
+import { BarChart3, Briefcase, FileText, History, Inbox, LayoutDashboard, Menu, Settings, UserCog, Users, X, type LucideIcon } from "lucide-react";
 import { useState } from "react";
 import { LogoMark } from "@/components/brand/Logo";
 import { cn } from "@/lib/cn";
@@ -10,13 +10,14 @@ import { cn } from "@/lib/cn";
 export type NavItem = {
   href: string;
   label: string;
-  icon: "dashboard" | "articles" | "cases" | "enquiries" | "activity" | "settings" | "users" | "account";
+  icon: "dashboard" | "analytics" | "articles" | "cases" | "enquiries" | "activity" | "settings" | "users" | "account";
   /** Small count shown next to the label, e.g. new enquiries. */
   badge?: number;
 };
 
 const ICONS: Record<NavItem["icon"], LucideIcon> = {
   dashboard: LayoutDashboard,
+  analytics: BarChart3,
   articles: FileText,
   cases: Briefcase,
   enquiries: Inbox,

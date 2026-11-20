@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { CheckCircle2, CircleAlert, Clock, ExternalLink, FileText, Briefcase, Inbox, ShieldCheck, Users } from "lucide-react";
+import { BarChart3, CheckCircle2, Search, CircleAlert, Clock, ExternalLink, FileText, Briefcase, Inbox, ShieldCheck, Users } from "lucide-react";
 import { Notice } from "@/components/admin/ui";
+import { dashboardSummary } from "@/server/admin/analytics";
 import { recentActivity, type ActivityRow } from "@/server/admin/activity";
 import { requireStaff, type Staff } from "@/server/admin/auth";
 import { can, ROLE_LABEL, ROLE_SUMMARY } from "@/server/admin/roles";
@@ -61,7 +62,7 @@ export default async function DashboardPage({ searchParams }: PageProps<"/admin"
   const seesContent = can(staff.role, "articles.view") || can(staff.role, "cases.view");
 
   const seesEnquiries = can(staff.role, "enquiries.view");
-  const [articles, cases, status, activity, team, enquiryCounts, latestEnquiries] = await Promise.all([
+  const [articles, cases, status, activity, team, enquiryCounts, latestEnquiries, traffic] = await Promise.all([
     github && can(staff.role, "articles.view") ? safe(listArticles) : null,
     github && can(staff.role, "cases.view") ? safe(listCases) : null,
     github && seesContent ? safe(() => publishStatus()) : null,
@@ -69,6 +70,7 @@ export default async function DashboardPage({ searchParams }: PageProps<"/admin"
     can(staff.role, "staff.manage") ? safe(listStaff) : null,
     seesEnquiries ? safe(statusCounts) : null,
     seesEnquiries ? safe(async () => (await listEnquiries(staff, { status: "open" })).rows.slice(0, 5)) : null,
+    safe(() => dashboardSummary(staff)),
   ]);
 
   const published = articles?.filter((a) => a?.status === "published").length ?? 0;
@@ -99,8 +101,18 @@ export default async function DashboardPage({ searchParams }: PageProps<"/admin"
         <Notice kind="error">Content isn&rsquo;t connected: GITHUB_TOKEN and GITHUB_REPO are missing in Vercel.</Notice>
       )}
 
-      {(articles || cases || team || enquiryCounts) && (
+      {(articles || cases || team || enquiryCounts || traffic) && (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {traffic?.visitors != null && (
+            <Link href="/admin/analytics" className="rounded-[18px] hover:ring-2 hover:ring-sprout/40">
+              <Stat icon={BarChart3} label="Visitors" value={traffic.visitors.toLocaleString("en-GB")} sub="last 28 days" />
+            </Link>
+          )}
+          {traffic?.clicks != null && (
+            <Link href="/admin/analytics" className="rounded-[18px] hover:ring-2 hover:ring-sprout/40">
+              <Stat icon={Search} label="Clicks from Google" value={traffic.clicks.toLocaleString("en-GB")} sub="last 28 days" />
+            </Link>
+          )}
           {enquiryCounts && <Stat icon={Inbox} label="New enquiries" value={enquiryCounts.new} sub={`${enquiryCounts.replied} replied, still open`} />}
           {articles && <Stat icon={FileText} label="Articles published" value={published} sub={`${articles.length - published} hidden`} />}
           {cases && <Stat icon={Briefcase} label="Case studies" value={cases.length} />}
@@ -224,6 +236,7 @@ function YourAccess({ staff }: { staff: Staff }) {
     { label: "Case studies", ok: can(staff.role, "cases.view"), note: can(staff.role, "cases.publish") ? "publish" : "drafts for review" },
     { label: "Enquiries", ok: can(staff.role, "enquiries.view"), note: can(staff.role, "enquiries.delete") ? "including delete" : "" },
     { label: "Settings", ok: can(staff.role, "settings.edit"), note: can(staff.role, "settings.ads") ? "including ads" : "" },
+    { label: "Analytics", ok: can(staff.role, "analytics.view"), note: "" },
     { label: "Users", ok: can(staff.role, "staff.manage"), note: "" },
   ];
   return (

@@ -18,9 +18,9 @@ export const ROLE_LABEL: Record<Role, string> = {
 };
 
 export const ROLE_SUMMARY: Record<Role, string> = {
-  super_admin: "Everything, including users, roles, ads, the activity log and undo.",
-  admin: "Publishes and edits all articles and case studies, manages enquiries and contact settings.",
-  editor: "Writes and edits articles and case studies as drafts and submits them for review.",
+  super_admin: "Everything, including users, roles, ads, analytics, the activity log and undo.",
+  admin: "Publishes and edits all articles and case studies, manages enquiries and contact settings, and sees analytics.",
+  editor: "Writes and edits articles and case studies as drafts and submits them for review, and sees analytics.",
   author: "Writes, publishes, edits and hides their own blog posts.",
   support: "Views and handles enquiries: status, notes and replies.",
 };
@@ -43,7 +43,8 @@ export type Permission =
   | "content.review"
   | "enquiries.view"
   | "enquiries.manage"
-  | "enquiries.delete";
+  | "enquiries.delete"
+  | "analytics.view";
 
 const MATRIX: Record<Role, Permission[]> = {
   super_admin: [
@@ -65,6 +66,7 @@ const MATRIX: Record<Role, Permission[]> = {
     "enquiries.view",
     "enquiries.manage",
     "enquiries.delete",
+    "analytics.view",
   ],
   admin: [
     "dashboard.view",
@@ -81,8 +83,9 @@ const MATRIX: Record<Role, Permission[]> = {
     "content.review",
     "enquiries.view",
     "enquiries.manage",
+    "analytics.view",
   ],
-  editor: ["dashboard.view", "articles.view", "articles.edit_any", "articles.edit_own", "cases.view", "cases.edit"],
+  editor: ["dashboard.view", "analytics.view", "articles.view", "articles.edit_any", "articles.edit_own", "cases.view", "cases.edit"],
   author: ["dashboard.view", "articles.view", "articles.edit_own", "articles.publish_own"],
   support: ["dashboard.view", "enquiries.view", "enquiries.manage"],
 };

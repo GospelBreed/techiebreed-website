@@ -57,6 +57,43 @@ Permissions live in one place: `src/server/admin/roles.ts`.
   from Activity. If someone else saved first, you're asked to reload instead of overwriting their change.
 - The Claude connector can change contact details and links, but not the ads switch.
 
+## Analytics
+
+- **Admin → Analytics** (Super Admin, Admins and Editors) shows two sources side by side, for the
+  last 7 days, 28 days or 3 months, each compared with the period before:
+  - **Visitors** from Google Analytics 4: visitors, visits, pages viewed, engaged visits, most-read
+    pages, how people arrive, sources, countries and devices.
+  - **Google Search** from Search Console: clicks, times shown, click rate, average position, the
+    search terms people used, and the pages they clicked. Google's last 2–3 days are still filling in.
+- **On the website now** counts people in the last 30 minutes and refreshes every 30 seconds.
+- The dashboard shows visitors and Google clicks for the last 28 days.
+- Answers from Google are kept for 10 minutes (live numbers for 20 seconds).
+- Tracking runs on the public pages only, never in the admin.
+
+### Connecting Google (once, by the Super Admin)
+
+1. **Google Analytics 4.** At https://analytics.google.com → **Admin → Create → Property**, name it
+   *TechieBreed website*, time zone **Nigeria**, currency **Naira**. Add a **Web** data stream for
+   `https://www.techiebreed.org` (leave **Enhanced measurement** on). Copy the **Measurement ID**
+   (`G-…`) and, from **Admin → Property details**, the **Property ID** (numbers only).
+2. **Google Cloud.** At https://console.cloud.google.com create a project *techiebreed-website*.
+   In **APIs & Services → Library** enable **Google Search Console API** and
+   **Google Analytics Data API**.
+3. **Service account.** **IAM & Admin → Service Accounts → Create**, name *website-analytics*, no roles.
+   Open it → **Keys → Add key → JSON**. A file downloads: this is the key. Don't email or paste it
+   anywhere except Vercel.
+4. **Give it access.** Copy the service account's email (`…@….iam.gserviceaccount.com`).
+   - Search Console → **Settings → Users and permissions → Add user**: that email, permission **Restricted**.
+   - Google Analytics → **Admin → Property access management → +**: that email, role **Viewer**.
+5. **Vercel** → Project → Settings → Environment Variables (Production), then redeploy:
+   - `NEXT_PUBLIC_GA_MEASUREMENT_ID` = the `G-…` id (switches on visitor tracking)
+   - `GOOGLE_SERVICE_ACCOUNT_JSON` = the whole contents of the JSON key file
+   - `GSC_SITE_URL` = `sc-domain:techiebreed.org` for a Domain property, or
+     `https://www.techiebreed.org/` for a URL-prefix property (as listed in Search Console)
+   - `GA4_PROPERTY_ID` = the Property ID
+6. Open **Admin → Analytics**. If something is missing, the page says exactly which step.
+   Visitor numbers start from the day tracking is switched on; Search Console already has history.
+
 ## One-time setup
 
 ### 1. Supabase project
