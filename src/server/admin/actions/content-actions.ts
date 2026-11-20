@@ -16,6 +16,7 @@ import {
 } from "../content";
 import { AdminError } from "../staff";
 import { GitHubError } from "@/server/mcp/github";
+import { slugSchema } from "@/server/mcp/validate";
 
 export type ContentState = {
   ok?: boolean;
@@ -46,7 +47,8 @@ function fail(e: unknown): ContentState {
 const payloadSchema = z.object({
   id: z.string().optional(),
   kind: kindSchema,
-  slug: z.string().nullable().optional(),
+  // Only a real slug (lower-case words and hyphens): it becomes a file path in the repo.
+  slug: z.union([slugSchema, z.literal("")]).nullable().optional(),
   baseSha: z.string().nullable().optional(),
   title: z.string().max(200),
   data: z.record(z.string(), z.unknown()),

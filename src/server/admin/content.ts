@@ -168,6 +168,7 @@ export async function saveDraft(s: Staff, input: DraftInput): Promise<Draft> {
   if (!canEditKind(s, input.kind)) throw new AdminError("Your role can't edit this.");
   if (input.title.trim().length < 3) throw new AdminError("Give it a title first.");
   if (input.body.length > 60_000) throw new AdminError("The text is too long (max 60,000 characters).");
+  if (input.slug && !slugSchema.safeParse(input.slug).success) throw new AdminError("That web address isn't valid.");
   const sb = serviceClient();
 
   if (input.slug) {
@@ -300,6 +301,8 @@ export type PublishResult = { slug: string; commit: string; url: string };
 
 export async function publishDraft(s: Staff, id: string, opts: { force?: boolean } = {}): Promise<PublishResult> {
   const d = await getDraft(s, id);
+  // The slug becomes a file path: refuse anything that isn't a plain slug (e.g. "../").
+  if (d.slug && !slugSchema.safeParse(d.slug).success) throw new AdminError("This draft's web address isn't valid.");
   const live = d.slug ? await getLive(d.kind, d.slug) : null;
   if (!canPublish(s, d.kind, live, d.owner_id)) {
     throw new AdminError(
