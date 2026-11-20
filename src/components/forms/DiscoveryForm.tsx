@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { SelectInput, TextArea, TextInput } from "@/components/ui/FormField";
 import { services } from "@/content-data/services";
@@ -120,7 +121,12 @@ export function DiscoveryForm() {
 
       <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center">
         <SubmitButton sending={status === "sending"}>Send my enquiry</SubmitButton>
-        <p className="text-[13.5px] text-muted">We&rsquo;ll only use your details to reply to you.</p>
+        <p className="text-[13.5px] text-muted">
+          We&rsquo;ll only use your details to reply to you.{" "}
+          <Link href="/privacy" className="font-medium text-leaf underline underline-offset-4 hover:text-forest">
+            Privacy policy
+          </Link>
+        </p>
       </div>
     </form>
   );

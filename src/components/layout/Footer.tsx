@@ -136,7 +136,10 @@ export async function Footer() {
 
         <div className="mt-16 flex flex-col-reverse items-start justify-between gap-6 border-t border-white/10 pt-8 md:flex-row md:items-center">
           <p className="text-[14px] font-medium text-white/80">
-            © {year} TechieBreed. All rights reserved.
+            © {year} TechieBreed. All rights reserved.{" "}
+            <Link href="/privacy" className="underline decoration-white/40 underline-offset-4 hover:text-white hover:decoration-sprout">
+              Privacy policy
+            </Link>
           </p>
           <ul className="flex items-center gap-3" aria-label="Social media">
             {socials.map(({ label, href, Icon }) => (
