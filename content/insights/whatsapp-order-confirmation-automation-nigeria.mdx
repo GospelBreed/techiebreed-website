@@ -1,0 +1,205 @@
+---
+title: How to Automate WhatsApp Order Confirmations and Delivery Updates in Nigeria
+summary: >-
+  How to automate WhatsApp order confirmations and delivery updates in Nigeria:
+  the six messages to send, confirming pay-on-delivery orders, Meta's template
+  rules and October 2026 pricing, and when to hand over to a person.
+date: '2026-11-21'
+author: TechieBreed team
+tags:
+  - Automation
+  - WhatsApp
+  - Small business
+  - Sales systems
+---
+
+A customer orders on Friday night. On Saturday someone on your team sends "Hi, we got your order" on WhatsApp, if they remember. On Monday the dispatch rider calls to ask for directions, the customer doesn't pick up, and the parcel comes back. By Tuesday three other customers have messaged "Where is my order?", and nobody can answer without calling the rider.
+
+None of this is unusual for a Nigerian business that sells online, on Instagram or through WhatsApp. Customers expect to hear from you on WhatsApp, not email, and when updates depend on someone finding time to type them, they arrive late or not at all. This guide shows you how to automate WhatsApp order confirmations and delivery updates: which messages to send, how to set them up with the tools you already use, what Meta's rules and pricing mean for you since October 2026, and how to keep a person involved when something goes wrong.
+
+It's written for owners and operations managers. You won't need to write code for most of it, but we point out where a developer or a no-code tool comes in.
+
+## Why manual order updates cost more than they look
+
+The cost of doing this by hand shows up in places most businesses don't measure.
+
+**Failed deliveries.** A rider who arrives at the wrong address, or at an address where nobody is expecting a delivery, burns fuel, time and a delivery slot. If you sell on pay on delivery, the customer may simply refuse the parcel. It's a common enough problem that in 2025 [ThisDay reported](https://www.thisdaylive.com/2025/07/28/selligate-deploys-ai-to-tackle-serial-pay-on-delivery-order-cancellers-in-nigeria/) on a Nigerian start-up building software to flag customers who repeatedly cancel pay-on-delivery orders, based on signals such as poor call pickup and frequent rescheduling.
+
+**"Where is my order?" messages.** Every customer who has to ask is a customer you've made anxious. Each question also pulls someone away from packing, selling or answering new enquiries.
+
+**Inconsistent service.** When updates depend on whoever is on shift, one customer gets a friendly message at every stage and another hears nothing until the rider calls. Customers judge you on the worst experience, not the best.
+
+The fix isn't to ask your team to try harder. It's to make the updates happen automatically whenever an order changes status, and to bring in a person only when the customer needs one.
+
+## The six messages that cover most orders
+
+Before choosing a tool, decide which messages you need. For most Nigerian businesses that deliver physical goods, six do the job.
+
+1. **Order confirmation.** Sent the moment an order is placed. It restates the items, total, delivery address and how payment works. For prepaid orders it doubles as a payment receipt.
+2. **Pay-on-delivery confirmation request.** For pay-on-delivery orders, ask the customer to confirm before you dispatch, ideally with buttons such as "Confirm order", "Change address" and "Cancel". Only orders the customer confirms go to the rider.
+3. **Dispatched.** The order has left your shop or warehouse, with the expected delivery day and either a tracking link or the rider's name and number.
+4. **Arriving today.** Sent on the morning of delivery, so the customer knows to be available and to have the money ready if paying on delivery.
+5. **Delivered.** A short thank-you with a receipt and one line on how to get help if anything is wrong.
+6. **Problem update.** Sent when something changes: a delay, a failed delivery attempt or an item out of stock. This is the one most likely to need a person behind it.
+
+A delivered order is also the natural moment to ask for a review. Keep that request separate from the delivery message and follow Google's rules, which our guide to [optimising your Google Business Profile in Nigeria](/insights/google-business-profile-nigeria) explains.
+
+You don't have to launch all six at once. If failed deliveries are your biggest headache, start with numbers 2 and 4. If "Where is my order?" messages are, start with 1 and 3.
+
+## What Meta's rules mean for order messages
+
+If you send these messages automatically, you'll be using the WhatsApp Business Platform (the API), usually through a provider or a plugin. The free WhatsApp Business app can't be connected to your store to send messages when an order changes status. More on that below.
+
+Three rules on the platform matter for order updates.
+
+**Templates outside the 24-hour window.** When a customer messages you, a 24-hour customer service window opens and you can reply freely. Outside that window, which is where most order updates land, you must use a message template that Meta has approved.
+
+**Order updates are "utility" templates, as long as they stay non-promotional.** Meta's [template categorisation guidelines](https://developers.facebook.com/documentation/business-messaging/whatsapp/templates/template-categorization) list order confirmations and shipping updates as utility examples, such as "Your order `{{order_number}}` is confirmed" and "your package … is on its way". The same guidelines say a template that mixes an order update with promotional content, such as a discount code, is categorised as marketing, and that Meta can re-categorise an approved template. Keep order messages about the order. Send offers separately, to customers who have agreed to receive them.
+
+**Pricing changed on 1 October 2026.** According to Meta's [pricing page](https://developers.facebook.com/documentation/business-messaging/whatsapp/pricing), you're charged per delivered message, based on the message category and the customer's country. Utility templates sent inside an open customer service window had been free since July 2025, but Meta resumed charging for them on 1 October 2026. Free-form replies inside the window (service messages) are now free only for the first 1,000 per business phone number each month, according to Meta's [service and utility pricing page](https://developers.facebook.com/documentation/business-messaging/whatsapp/pricing/non-template-messages). Rates differ by country and Meta updates them quarterly, so check the current Nigeria rate with your provider rather than relying on a figure in a blog post, including this one.
+
+What this means in practice: every automated update now has a small cost, so send the messages that change outcomes, not a message for every internal status change. We cover the wider rules for WhatsApp automation, including AI replies, in our [WhatsApp AI assistant guide](/insights/whatsapp-ai-assistant-for-business-nigeria).
+
+## Step 1: Pick one place where every order lives
+
+Automation needs a trigger, and the trigger is an order changing status in one system. Where that system lives decides how you build everything else.
+
+- **You use Shopify, WooCommerce or Zoho Commerce.** The store already holds every order and status. You'll connect WhatsApp to it.
+- **You take orders in Instagram DMs and WhatsApp chats.** You need a single record first. A simple order form (Google Forms or similar) that writes into a Google Sheet is enough to start. The sheet becomes the place where status changes from "New" to "Confirmed" to "Dispatched" to "Delivered".
+- **You use an inventory or POS tool.** Check whether it can send a webhook (an automatic notification to another system) or connect to Zapier, Make or n8n when an order's status changes.
+
+If orders currently live in three places, fix that before you automate anything. Automating a messy process just makes the mess arrive faster.
+
+## Step 2: Get WhatsApp Business Platform access and customer opt-in
+
+You can get platform access in two ways: directly through Meta's Cloud API, or through a provider (a business solution provider) that gives you a dashboard, a template editor and integrations. For most small businesses a provider is simpler, though it adds its own fee on top of Meta's charges. Whichever you choose, ask how they handle your existing business number (some providers can connect a number you already use on the WhatsApp Business app, others need a new one), and plan to verify your Meta Business account before you go beyond testing.
+
+Collect opt-in at checkout. A line such as "Send me order and delivery updates on WhatsApp", with the customer's number, is clear and honest. The [WooCommerce guide to WhatsApp order notifications](https://woocommerce.com/document/how-to-send-woocommerce-order-notifications-to-whatsapp/) recommends a checkout opt-in box, and Zoho Commerce's [help page](https://www.zoho.com/commerce/kb/settings/send-order-notifications-to-customers-via-whatsapp/index.md) says to message only customers who opted in at checkout or through the customer portal. It's also good practice under the Nigeria Data Protection Act 2023: you're using customers' names, phone numbers and addresses, so use them only for the order, store them securely and limit who on your team can see them. If you're unsure about your obligations, get advice from a qualified data protection professional.
+
+## Step 3: Write your templates
+
+Write each template once, submit it for approval and reuse it with variables filled in for each order. In the examples below, the parts in square brackets become numbered variables in the template, such as `{{1}}`. Zoho says approval typically takes up to 24 hours, so build this into your timeline.
+
+An order confirmation for a prepaid order:
+
+> Hi [name], thank you for your order [order number]. We've received your payment of [amount]. We'll deliver to [address] and send you an update when it's on its way. Reply to this message if anything needs changing.
+
+A pay-on-delivery confirmation request, with three quick-reply buttons (Confirm order / Change address / Cancel):
+
+> Hi [name], please confirm your order [order number] for [amount], to be paid on delivery at [address]. We'll dispatch once you confirm.
+
+An arriving-today message:
+
+> Hi [name], your order [order number] is out for delivery today. [Rider name] will bring it and may call you on this number. Please have [amount] ready if you're paying on delivery.
+
+A few rules keep templates approved and useful. Make each one specific to an order (a template that's only a variable such as `{{1}}` is treated as marketing). Leave out offers, upsells and links to your other products. Use the customer's name and order number so the message can't be mistaken for spam. And always tell the customer how to reach a person.
+
+## Step 4: Connect order status changes to the messages
+
+This is the automation itself: when an order's status changes, send the matching template. How you build it depends on Step 1.
+
+### If you use WooCommerce, Zoho Commerce or Shopify
+
+Many store platforms have plugins or built-in options. The WooCommerce guide describes the NotifyStore extension, which connects to Meta's WhatsApp Cloud API and sends an order confirmation after checkout and a shipping alert when an order is marked "Completed". Zoho Commerce has a WhatsApp integration under Settings > Integrations: you get templates approved for statuses such as "Order Placed", toggle on the ones to send automatically, and buy message credits to cover Meta's charges. Shopify has several WhatsApp apps in its app store. Compare them on three things: whether they use the official API, whether they let you add a pay-on-delivery confirmation step, and whether customer replies come back to a shared inbox your team can see.
+
+### If you use a no-code automation tool
+
+Zapier, Make and n8n can listen for an order event and send a WhatsApp template through a provider. Zapier publishes a [ready-made automation](https://zapier.com/automations/business-owners/e-commerce-operations/customer-communication/send-confirmations-to-customers-when-orders-are-paid) that starts with a new paid Shopify order, checks the customer has a phone number, formats the message and sends a WhatsApp template. n8n has a [community workflow](https://n8n.io/workflows/15622) that receives order events (new order, shipped, out for delivery, delivered), picks the matching template, sends it through the WhatsApp Business API and logs each send to Google Sheets.
+
+If your orders live in a Google Sheet, the same tools can watch for a change in the status column. Your dispatcher changes "Confirmed" to "Dispatched" and the customer gets the message a minute later.
+
+### Getting delivery status from riders and couriers
+
+This is the gap most guides skip, because they assume a courier with a tracking API. Many Nigerian businesses use their own riders or a local dispatch company. You have three options, from simplest to most automated:
+
+- **The dispatcher updates the sheet or store** when riders leave and when they report a drop-off. This is manual, but it's one status change instead of a typed message to every customer.
+- **Riders tap a link.** A short form per delivery ("Delivered" / "Customer not available" / "Wrong address") updates the order and triggers the right message.
+- **The courier sends updates.** If your logistics partner offers tracking links, webhooks or an API, connect them so the status changes without anyone touching it.
+
+## Step 5: Set stop rules and hand-over points
+
+An automated message at the wrong moment does more harm than no message. Build these rules in from the start:
+
+- **Cancelled orders stop all further messages.**
+- **A customer reply pauses the sequence** and goes to a person in a shared inbox, so a question about the address isn't answered with "Your order is on its way".
+- **No reply to a pay-on-delivery confirmation** within your chosen time (for example, by the end of the next business day) creates a task for someone to call, rather than sending reminder after reminder.
+- **A failed delivery attempt** creates a task to reschedule. Don't leave it to an automated message alone.
+- **Always check the current status before sending**, so a delayed automation never tells a customer their order is "out for delivery" after it has arrived.
+
+If you also take payment by transfer before dispatch, the same idea applies to payment: confirm the money has arrived before sending "payment received". Our guide to [automating payment reminders](/insights/automate-payment-reminders-nigeria) explains how payment webhooks tell your system when a customer has paid.
+
+## Real examples: what businesses have done with order updates
+
+There are no published Nigerian case studies with measured results for this yet, so here are two from elsewhere, published by Meta, that show the same approach.
+
+**Urbano Envíos**, a courier company headquartered in Ecuador, uses WhatsApp to ask recipients to confirm or update their delivery address before delivery and to remind them of the documents they'll need. In its [WhatsApp customer story](https://whatsappbusiness.com/resources/success-stories/urbano-envios), the company reports a 100% delivery success rate for customers who confirmed their address via WhatsApp and a 35% decrease in manual address changes entered by its agents. Those are the company's own figures, but the lesson carries over to any business with pay-on-delivery or hard-to-find addresses: confirming before dispatch is cheaper than a failed trip.
+
+**Segari**, an online grocery delivery business in Indonesia, sends order confirmations and delivery tracking entirely through WhatsApp and uses the same channel for customer service and refunds for missing or damaged items, according to its [WhatsApp customer story](https://business.whatsapp.com/resources/success-stories/segari). The point here is the joined-up experience: the customer who gets a delivery update can reply in the same chat if something is wrong.
+
+## An illustrative example: an Instagram skincare brand in Lagos
+
+*This is an illustrative walkthrough, not a client case study.*
+
+A skincare brand takes orders through Instagram and WhatsApp. Lagos customers can pay on delivery; customers outside Lagos pay by transfer before dispatch. Before automating, two staff spent much of each morning typing confirmations, calling customers to confirm addresses and answering "Where is my order?".
+
+With an automated setup:
+
+1. Every order goes into an order form that writes to a Google Sheet, whether it came from a DM or the website.
+2. A new row triggers an order confirmation template. Pay-on-delivery orders get the confirmation request with buttons instead.
+3. Orders confirmed by the customer move to "Ready to dispatch". Orders with no reply by 4pm the next day become a call task for one named staff member.
+4. When the dispatcher marks a batch "Dispatched", each customer gets the rider's name and expected day. On delivery morning, the "arriving today" message goes out.
+5. Riders mark each drop-off through a short form. "Delivered" sends the thank-you; "Customer not available" creates a reschedule task.
+6. Every Monday, the owner sees a summary: orders, confirmations, failed deliveries and the reasons behind them.
+
+The staff no longer type routine updates. Their time goes on the calls and reschedules that need a person, and the owner can finally see where deliveries fail.
+
+## How to measure whether it's working
+
+Track a few numbers before you start and again after a month, using your own records:
+
+- **Pay-on-delivery confirmation rate:** the share of pay-on-delivery orders customers confirm.
+- **Failed-delivery rate:** deliveries returned or refused, out of all dispatched.
+- **"Where is my order?" messages per week.** Count them by hand for a week if you have to.
+- **Messaging cost per delivered order:** your provider's monthly bill divided by delivered orders.
+- **Staff time on order updates:** a rough weekly estimate is enough.
+
+If a message doesn't move any of these, consider dropping it, especially now that utility messages are charged.
+
+## Mistakes to avoid
+
+- **Adding promotions to order updates.** It risks the template being treated as marketing and charged at marketing rates, and it irritates customers waiting for their parcel.
+- **Messaging without opt-in.** Ask at checkout and record the answer.
+- **Automating before orders live in one place.** Fix the order record first.
+- **Sending updates nobody acts on.** Every message should either reassure the customer or ask them to do something.
+- **No route to a person.** Every automated message should make it easy to reply and reach someone.
+- **Using unofficial WhatsApp tools.** Bulk-messaging tools that automate the regular WhatsApp app break WhatsApp's terms and risk getting your number banned. Use the official platform through Meta or an approved provider.
+
+## Frequently asked questions
+
+### Can I automate order confirmations with the free WhatsApp Business app?
+
+Not in a way that reacts to your orders. The app has quick replies, labels, greeting messages and away messages, which help your team reply faster, but it can't be connected to your store or order sheet so messages go out when an order changes status. For that you need the WhatsApp Business Platform, usually through a provider or a store plugin.
+
+### Are WhatsApp order confirmation messages free?
+
+No. Since 1 October 2026, Meta charges for utility templates, which includes order updates, even inside an open customer service window. Free-form replies within the 24-hour window are free for the first 1,000 per business number each month. Rates vary by country, so check the current Nigeria rate with your provider.
+
+### What's the difference between a utility and a marketing template?
+
+Utility templates are about something the customer has done or asked for, such as an order, delivery or refund, and contain no promotion. Marketing templates promote products or offers. Meta treats a message that mixes the two, such as an order update with a discount code, as marketing.
+
+### What should I do if a pay-on-delivery customer doesn't confirm?
+
+Don't dispatch it, and don't keep sending automated reminders. Set a cut-off, then have a person call. A short call often reveals a wrong number, a changed address or a customer who no longer wants the order, all of which are cheaper to find out before the rider leaves.
+
+### Do I need a developer to set this up?
+
+Often not. Store plugins and no-code tools such as Zapier, Make and n8n cover the common cases. You'll want technical help for courier integrations, connecting several sales channels or building a custom dashboard.
+
+## Where to start
+
+Pick the problem that costs you most, failed deliveries or "Where is my order?" messages, and automate the two messages that address it. Get orders into one place, collect opt-in at checkout, get your templates approved and build in the stop rules before you switch anything on. Then measure for a month and add the next message.
+
+**Want to build it yourself?** In [No-Code & Low-Code Automation](/academy#interest) at TechieBreed Academy, you build useful workflows like this one without writing code: four weeks of live weekend sessions, with weekday practice on your own business. Register your interest on the [Academy page](/academy#interest), or enrol directly on the [student hub](https://academy.techiebreed.org).
+
+**Rather have it built for you?** TechieBreed designs and builds [order and customer-update automations](/what-we-do#automation) connected to your store, WhatsApp provider and delivery process, and handles [integrations](/what-we-do#integrations) with the tools you already use. If you're not sure which part of your operation to fix first, start with an [AI Operations Audit](/contact#audit).
