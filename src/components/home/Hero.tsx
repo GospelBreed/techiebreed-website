@@ -3,7 +3,8 @@
 import { Pause, Play } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/Button";
-import { bubbleScenes } from "@/components/illustrations/BubbleScenes";
+import { StockPhoto } from "@/components/media/StockPhoto";
+import { heroPhotos } from "@/content-data/photos";
 import { auditCta } from "@/lib/site";
 import { cn } from "@/lib/cn";
 import { RotatingKeyword } from "./RotatingKeyword";
@@ -50,7 +51,7 @@ export function Hero() {
           });
         if (!visible.length) return prev;
         const shown = new Set(prev.map((s) => s.cur));
-        const spare = bubbleScenes.map((_, k) => k).filter((k) => !shown.has(k));
+        const spare = heroPhotos.map((_, k) => k).filter((k) => !shown.has(k));
         if (!spare.length) return prev;
         const target = visible[turn.current % visible.length].i;
         turn.current += 1;
@@ -105,8 +106,9 @@ export function Hero() {
         >
           {SLOTS.map((slot, i) => {
             const s = slots[i];
-            const Cur = bubbleScenes[s.cur];
-            const Prev = s.prev !== null ? bubbleScenes[s.prev] : null;
+            const cur = heroPhotos[s.cur];
+            const prev = s.prev !== null ? heroPhotos[s.prev] : null;
+            const sizes = "(min-width: 1280px) 224px, 150px";
             return (
               <div
                 key={i}
@@ -114,13 +116,13 @@ export function Hero() {
                 className={cn("hero-b float absolute overflow-hidden rounded-full bg-forest-glow shadow-bubble", slot.cls)}
                 style={{ "--float-dur": slot.dur, "--float-delay": slot.delay, "--i": i } as React.CSSProperties}
               >
-                {Prev && (
+                {prev && (
                   <div key={`p${s.gen}`} className="bubble-out absolute inset-0">
-                    <Prev />
+                    <StockPhoto photo={prev} sizes={sizes} />
                   </div>
                 )}
                 <div key={`c${s.gen}`} className={cn("absolute inset-0", s.gen > 0 && "bubble-in")}>
-                  <Cur />
+                  <StockPhoto photo={cur} sizes={sizes} priority={s.gen === 0 && i < 3} />
                 </div>
               </div>
             );

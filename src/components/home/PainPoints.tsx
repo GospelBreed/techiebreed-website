@@ -1,13 +1,11 @@
-import type { ComponentType } from "react";
 import { Button } from "@/components/ui/Button";
 import { FeatureTabs, RevealLine, type FeatureSlide } from "@/components/ui/FeatureTabs";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { scenes } from "@/components/illustrations/BubbleScenes";
-
-const { Chat, Reminder, Connect, Report } = scenes;
+import { StockPhoto } from "@/components/media/StockPhoto";
+import { painPhotos, type Photo } from "@/content-data/photos";
 
 type Pain = {
-  id: string;
+  id: keyof typeof painPhotos;
   label: string;
   dot: string;
   background: string;
@@ -16,7 +14,6 @@ type Pain = {
   text: string;
   fix: string;
   cta: { label: string; href: string };
-  Scene: ComponentType;
 };
 
 const pains: Pain[] = [
@@ -30,7 +27,6 @@ const pains: Pain[] = [
     text: "By then, many have already asked someone else.",
     fix: "We build assistants that reply straight away, capture the details and pass serious enquiries to your team.",
     cta: { label: "See AI assistants", href: "/what-we-do#agents" },
-    Scene: Chat,
   },
   {
     id: "follow-ups",
@@ -42,7 +38,6 @@ const pains: Pain[] = [
     text: "Busy teams forget. Leads go cold and renewals slip.",
     fix: "We set up reminders and follow-ups that go out on time, every time — and tell your team when a person is needed.",
     cta: { label: "See workflow automation", href: "/what-we-do#automation" },
-    Scene: Reminder,
   },
   {
     id: "data-entry",
@@ -54,7 +49,6 @@ const pains: Pain[] = [
     text: "Time your team could spend on customers goes on admin.",
     fix: "We automate data entry and build reports and dashboards that update themselves.",
     cta: { label: "See reporting", href: "/what-we-do#data" },
-    Scene: Report,
   },
   {
     id: "tools",
@@ -66,11 +60,10 @@ const pains: Pain[] = [
     text: "So someone copies and pastes between them — and mistakes creep in.",
     fix: "We connect your business tools so information moves on its own, and everyone sees the same picture.",
     cta: { label: "See integrations", href: "/what-we-do#integrations" },
-    Scene: Connect,
   },
 ];
 
-function Art({ Scene, accent }: { Scene: ComponentType; accent: string }) {
+function Art({ photo, accent }: { photo: Photo; accent: string }) {
   return (
     <div className="relative mx-auto aspect-square w-[min(78vw,340px)] md:w-[min(36vw,400px)]">
       <svg viewBox="0 0 400 400" aria-hidden className="absolute inset-0 size-full" fill="none">
@@ -88,7 +81,7 @@ function Art({ Scene, accent }: { Scene: ComponentType; accent: string }) {
         ))}
       </svg>
       <div className="feature-fade absolute inset-[15%] overflow-hidden rounded-full shadow-bubble">
-        <Scene />
+        <StockPhoto photo={photo} sizes="(min-width: 768px) 300px, 60vw" />
       </div>
     </div>
   );
@@ -114,7 +107,7 @@ function Slide({ pain }: { pain: Pain }) {
         </div>
       </div>
       <div className="order-1 pt-8 md:order-2 md:py-10 md:pr-10">
-        <Art Scene={pain.Scene} accent={pain.accent} />
+        <Art photo={painPhotos[pain.id]} accent={pain.accent} />
       </div>
     </div>
   );

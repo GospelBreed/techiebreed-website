@@ -15,7 +15,8 @@ import { IndustryTile } from "@/components/cards/IndustryTile";
 import { ProcessTimeline } from "@/components/sections/ProcessTimeline";
 import { ApprovalFlow } from "@/components/sections/ApprovalFlow";
 import { CTABand } from "@/components/sections/CTABand";
-import { ServiceArt } from "@/components/illustrations/ServiceArt";
+import { StockPhoto } from "@/components/media/StockPhoto";
+import { servicePhotos } from "@/content-data/photos";
 import { CaseCover } from "@/components/media/CaseCover";
 import { packages, services } from "@/content-data/services";
 import { industries } from "@/content-data/industries";
@@ -78,7 +79,11 @@ export default async function HomePage() {
               summary={s.summary}
               href={`/what-we-do#${s.id}`}
               wash={s.wash}
-              art={<ServiceArt id={s.id} />}
+              art={
+                <div className="relative size-full">
+                  <StockPhoto photo={servicePhotos[s.id]} sizes="(min-width: 1024px) 380px, (min-width: 768px) 50vw, 100vw" />
+                </div>
+              }
             />
           ))}
         </Reveal>
