@@ -1,0 +1,233 @@
+---
+title: How to Automate Inventory Management for a Small Business in Nigeria
+summary: >-
+  How to automate inventory management for a small business in Nigeria: one
+  stock record, sales that reduce stock on their own, reorder points, low-stock
+  alerts to the right person, and counts that catch leakage early.
+date: '2026-11-27'
+author: TechieBreed team
+tags:
+  - Automation
+  - Small business
+  - AI operations
+  - Getting started
+---
+
+A customer sends a WhatsApp message: "Is the 2-litre blender still available?" Your sales girl checks the shelf, then the store room, then calls the Yaba branch. Twenty minutes later the answer is yes, but the customer has already bought one elsewhere. The next day, a different problem: the stock book says you have six bags of rice, the shelf has two, and nobody can explain the gap.
+
+If that sounds familiar, the problem usually isn't your staff. It's that your stock lives in three places at once: a notebook, someone's head and the shelf. This guide shows you how to automate inventory management for a small business in Nigeria, step by step: one stock record, sales that reduce stock on their own, low-stock alerts that reach the right person, reorder points you can trust, and simple counts that catch leakage early. It's written for owners and operations managers of shops, pharmacies, provision stores, fashion and beauty brands and small distributors. You don't need to be technical, and we'll point out where a no-code tool or a developer comes in.
+
+## What inventory automation actually means
+
+Inventory automation doesn't mean robots in a warehouse. For a small business it means four things happen without someone remembering to do them:
+
+1. **Every sale reduces stock** in one record, whether it happened at the counter, on Instagram, on WhatsApp or on your website.
+2. **Every delivery from a supplier increases stock** in the same record, entered once.
+3. **Someone is told when an item is running low**, early enough to reorder before it runs out.
+4. **The record is checked against the shelf** on a regular rhythm, so gaps show up in days, not at year end.
+
+Everything else, such as dashboards, AI summaries and demand forecasts, sits on top of those four. If they aren't in place, the extras just give you wrong numbers faster.
+
+## Why manual stock tracking breaks down
+
+The usual problems are predictable:
+
+- **More than one "truth".** The notebook says one thing, the POS says another, and the Instagram page is still showing an item that sold out on Tuesday.
+- **Selling across channels without a shared count.** A shop that sells in-store and online can sell the same last item twice. A Bumpa merchant story about ShopVams, a Lagos beauty and skincare store with a physical shop in Yaba, lists exactly these risks: "double-selling of products online and in-store" and "mismatched inventory counts".
+- **Reordering by feel.** Stock is reordered when someone notices the shelf looks empty, which is usually too late for fast movers and too early for slow ones.
+- **Leakage nobody can trace.** Breakages, expired items, staff "borrowing" and unrecorded giveaways all look the same in a notebook: missing stock with no explanation.
+- **Cash tied up in the wrong items.** Moniepoint's guide to inventory puts it plainly: stock is "the money tied to" the goods on your shelves. Slow movers sitting in the store room are naira you can't use.
+
+## Step 1: Choose one source of truth for stock
+
+Pick one place where stock quantities live, and make everything else read from it or write to it. Bumpa's own guide to building an inventory system makes the same first recommendation: "Pick one single source of truth for your stock."
+
+You have three realistic options:
+
+- **Your POS or online store, if it tracks stock.** Many POS and online store systems reduce stock with each sale and let you set a low-stock level per item. Loyverse, for example, lets you switch on "Track stock" for an item, set a "Low stock" level, and sends a daily email at 10:00am listing items that have reached that level, according to its [help centre](https://help.loyverse.com/help/low-stocks). Nigerian options such as Bumpa and Moniepoint's Moniebook describe stock that updates with each sale as a core feature. If your sales already go through one of these, start there.
+- **A Google Sheet with forms.** If sales happen in many places that don't connect, a well-structured sheet can be the record, with Google Forms for recording sales, deliveries and adjustments. This is cheap and flexible but needs discipline.
+- **Inventory or accounting software.** Better once you have several branches, a warehouse or hundreds of products, especially if you also need purchase orders and supplier records.
+
+Whichever you choose, write down the rule: "If it isn't in the system, it didn't happen." Stock leaving the shelf without a record is the root of most gaps.
+
+## Step 2: Clean up your item list before you automate anything
+
+Automation copies whatever you give it. If one product is called "Indomie carton", "Indomie 40s" and "Indomie (big)" in three places, the system will treat them as three products.
+
+Before connecting anything:
+
+- **Give every item one name and one code (SKU).** Short codes like RICE-50KG or BLND-2L work fine. Bumpa's guide calls this naming "products and variants consistently".
+- **Record variants separately.** A dress in sizes 8, 10 and 12 is three stock lines, not one.
+- **Decide your unit.** Do you count cartons or packs? Bags or kilograms? Pick one per item and stick to it, and note the conversion if you buy in cartons and sell in packs.
+- **Add the details you'll need later:** supplier, cost price, selling price, and how many days the supplier usually takes to deliver (lead time).
+
+For a small shop, this is a weekend's work. It's also the step most businesses skip, and the reason their automated stock counts are wrong from day one.
+
+## Step 3: Make every sale reduce stock automatically
+
+This is where the real time saving comes from. Look at every way you sell and connect each one to your stock record.
+
+### Counter sales
+
+If you use a POS that tracks stock, each sale already reduces the count. If you don't, replace the sales book with a short form on a phone or tablet: item (from a dropdown), quantity, payment method. The form writes a row to your sheet, and a formula reduces stock.
+
+### Online store sales
+
+Most online store platforms reduce stock when an order is placed. The ShopVams story describes inventory "automatically updated with each order on the website". If your store and your counter use the same system, you avoid double-selling.
+
+### WhatsApp and Instagram orders
+
+These are the hardest, because the "order" is a chat. Two practical fixes:
+
+- **Send chat customers to a payment or order link** created in your store or POS, so the sale is recorded in the same system as everything else.
+- **Reduce stock when payment is confirmed.** If you take payments through Paystack, its webhooks send your system a `charge.success` event when "a successful charge was made". A no-code tool or developer can use that event to mark the order paid and reduce stock. Paystack's [webhook documentation](https://paystack.com/docs/payments/webhooks/) says to verify the `x-paystack-signature` header "before processing the event" and to return a 200 OK, otherwise it keeps resending the event for up to 72 hours, so the setup should check for duplicates before reducing stock twice.
+
+If most of your orders are paid by bank transfer, our guide to [confirming bank transfer payments automatically](/insights/confirm-bank-transfer-payments-automatically-nigeria) shows how to give each order its own account number so payment, and therefore the stock update, can be confirmed without anyone reading bank alerts. Once an order is confirmed, the same record can trigger the customer messages covered in our guide to [automating WhatsApp order confirmations and delivery updates](/insights/whatsapp-order-confirmation-automation-nigeria).
+
+### Deliveries, returns and write-offs
+
+Stock goes up and down for reasons other than sales. Give staff one simple form for each movement: "goods received" (with supplier and quantity), "customer return", and "damaged, expired or used in-house". Every adjustment needs a reason and a name. That single habit makes leakage visible.
+
+## Step 4: Set a reorder point for every item that matters
+
+A low-stock alert is only useful if the "low" level is right. That level is your reorder point: the stock level at which you should place an order so new stock arrives before you run out.
+
+The standard formula, as Shopify sets it out in its [guide to safety stock and reorder points](https://www.shopify.com/blog/safety-stock-vs-reorder-point), is:
+
+> Reorder point = (average sales rate × lead time) + safety stock
+
+And a simple way to estimate safety stock:
+
+> Safety stock = (maximum daily sales × maximum lead time) − (average daily sales × average lead time)
+
+Here's how it works in practice.
+
+*Illustrative example, not real business data:* a provisions store sells an average of 4 bags of 50kg rice a day, and 7 on its busiest days. The supplier usually delivers in 3 days but has taken 5 during fuel scarcity.
+
+- Safety stock = (7 × 5) − (4 × 3) = 35 − 12 = **23 bags**
+- Reorder point = (4 × 3) + 23 = **35 bags**
+
+So when rice drops to 35 bags, the system should tell someone to reorder. That number feels high until you remember what the safety stock is covering: a slow supplier and a busy week at the same time.
+
+You don't need to do this for every item. Start with your top 20 products by sales value, and set a simple fixed level for the rest. Your sales history gives you the averages. If you've already automated your daily sales report (see our guide to [automating daily sales reports](/insights/automate-daily-sales-reports-nigeria)), the numbers are already in one table. Review reorder points every quarter, and before festive seasons, when demand changes.
+
+## Step 5: Send low-stock alerts to the person who reorders
+
+An alert that goes to the owner's inbox and gets read at midnight doesn't help. Decide who places orders for each category, and send the alert to them.
+
+Ways to do it, from simplest:
+
+- **Your POS's built-in alert.** If your system has one, switch it on and add the right people as recipients. Loyverse's daily low-stock email goes to the owner and to employees with permission to manage items.
+- **A Google Sheet with a no-code tool.** Zapier publishes ready-made automations for this. One [watches an inventory sheet](https://zapier.com/automations/business-owners/retail-operations/inventory-replenishment/send-low-stock-email-alerts-to-team-leaders) for new or updated rows, filters for items "below the configured branch threshold" and emails the relevant team leader. Another [runs once a day](https://zapier.com/automations/business-owners/retail-operations/inventory-replenishment/update-daily-inventory-counts-and-alert-operations-when-low), recalculates stock from the day's usage, updates the sheet and emails purchasing about low items. Make and n8n can do the same.
+- **An alert on WhatsApp.** Many teams in Nigeria act faster on WhatsApp than email. Sending automated alerts there needs the WhatsApp Business Platform (API) through a provider, with an approved message template if the recipient hasn't messaged your number in the last 24 hours. A simpler option is to email the alert and post a short summary into a team channel your no-code tool supports.
+
+Make the alert useful, not just loud: item, current stock, reorder point, suggested order quantity, supplier and the supplier's phone number. One message per day listing everything low beats ten separate pings.
+
+### Where AI fits, and where it doesn't
+
+AI is useful for turning a list of low items into a clear message, or for drafting a purchase order to send to a supplier. n8n's community template for [Shopify low-stock monitoring](https://n8n.io/workflows/14370-monitor-shopify-low-stock-items-with-openai-google-sheets-slack-and-email/) is a good example of the right split: it checks stock on a schedule (every five hours), filters items at or below 10 units with ordinary logic, and only uses OpenAI to "generate alert text". The counting and the threshold decision stay with the system. Do the same: let formulas and rules decide what's low, and let AI write the message.
+
+Before sending any business data to an AI tool, remove anything you don't need to share, such as customer names and phone numbers. The Nigeria Data Protection Act 2023 applies to personal data, and stock data rarely needs any.
+
+## Step 6: Count regularly and investigate every gap
+
+No system is perfect. Items get miscounted, broken or taken. The fix is a counting rhythm you'll actually keep, and Bumpa's guide suggests weekly, biweekly or monthly depending on the business.
+
+A practical approach for a small business is cycle counting:
+
+- **Count your top 20 items every week**, a few each day, rather than closing the shop for a full count.
+- **Count everything once a quarter**, or before your accountant's year-end.
+- **Compare the count with the system automatically.** A form for the count, and a formula showing "system says 35, shelf has 31, difference −4", flagged for review if the gap is above a level you set.
+- **Record a reason for every adjustment.** "Damaged", "expired", "miscount", "unknown". If "unknown" keeps appearing for the same items or branch, you've found where to look.
+
+The point isn't to catch anyone out. It's to make stock gaps visible while they're small enough to fix.
+
+## Step 7: Add a weekly stock report
+
+Once the record, alerts and counts are working, a short weekly report helps you make buying decisions instead of reacting:
+
+- items below reorder point, and what's on order
+- best sellers this week versus last week
+- slow movers: items with no sales in 30 or 60 days
+- total stock value at cost price
+- stock adjustments and their reasons
+
+This can be a tab in your sheet, a dashboard, or an email that sends itself every Monday morning using the same scheduling tools described in our daily sales report guide. The slow-movers list is often the most valuable line: it shows where cash is sitting still.
+
+## A real example: what ShopVams moved to
+
+ShopVams is a Lagos store selling perfumes, skincare and its own home-fragrance line, through social media, a website and a physical store in Yaba. In a [merchant spotlight published by Bumpa](https://www.getbumpa.com/blog/merchant-spotlight-how-shopvams-uses-bumpa-for-order-processing-management) in March 2024, the store's challenges were keeping stock consistent across online and in-store sales, and coping with a rush of orders after a product video went viral in January. According to that article, the store used Bumpa to track inventory history (additions, sales, removals and returns), see best-sellers, receive real-time order notifications and have stock update automatically with each website order. The article says ShopVams "was able to process all the orders they got within that time frame". It doesn't give figures, so neither do we, and it's worth remembering this is a vendor's own customer story.
+
+The lesson isn't about one tool. It's the design: one stock record shared by every channel, updated by sales automatically, so a sudden spike in demand doesn't turn into double-selling.
+
+## An illustrative walkthrough: a two-branch pharmacy
+
+*This is an illustrative walkthrough, not a client case study.*
+
+A pharmacy with branches in Surulere and Ikeja sells over the counter and takes WhatsApp orders for delivery. Stock was tracked in exercise books, and the owner found out about stockouts when customers complained.
+
+With an automated setup:
+
+1. Every product gets one name and code in the POS, with separate stock for each branch.
+2. Counter sales reduce stock through the POS. WhatsApp orders are sent a payment link, and stock reduces when payment is confirmed.
+3. Deliveries from suppliers are entered once, against the supplier's invoice, by the branch supervisor.
+4. The top 30 products have reorder points based on three months of sales and each supplier's real delivery time.
+5. Every morning, each branch supervisor receives one email listing items at or below reorder point, with the supplier contact.
+6. Supervisors count ten fast-moving items every day, so the top lines are checked every week. Gaps above a set level are flagged to the owner.
+7. On Mondays, the owner gets a one-page report: low stock, slow movers, items close to expiry and stock value.
+
+The pharmacist stops phoning the other branch to check the shelf, and the owner starts the week knowing where the money is tied up.
+
+## Tools and approaches compared
+
+- **POS or online store with stock tracking** (for example Loyverse, Bumpa, Moniebook). The quickest start if most sales already go through it. Check whether it handles multiple branches, variants, stock adjustments with reasons and low-stock alerts, and how it records sales from WhatsApp or Instagram. Check current pricing on each provider's site. Bumpa's September 2026 blog post, for example, quotes "about ₦5,000 monthly", but prices change.
+- **Google Sheets with forms and a no-code tool** (Zapier, Make, n8n). Flexible and low-cost to start, and good when sales come from many unconnected places. Hosted no-code plans are usually priced in US dollars by usage, so estimate how many runs a month you'll need. It can become fragile beyond a few hundred items or several branches.
+- **Inventory or accounting software.** Better for purchase orders, supplier records, multiple warehouses and cost accounting. Usually more setup and training.
+- **A custom system.** Worth it when stock must connect to several sales channels, payment providers, delivery partners and reporting at once, or when off-the-shelf tools force you to work around them.
+
+Before choosing, ask whether the tool can:
+
+- reduce stock from every place you sell, not just one
+- record deliveries, returns and write-offs with a reason and a name
+- send low-stock alerts to more than one person
+- handle more than one branch or store room
+- export your data if you ever leave
+
+## Mistakes to avoid
+
+- **Automating before cleaning the item list.** Duplicate names and mixed units give you confident, wrong numbers.
+- **Letting stock leave without a record.** Staff use, samples and giveaways all need an entry.
+- **Setting every reorder point the same.** A fast mover with a slow supplier needs a much higher level than a slow mover you can buy around the corner.
+- **Sending every alert to the owner.** Alerts should go to whoever places the order.
+- **Letting AI decide what's low.** Use rules and formulas for counts and thresholds, and AI only for wording.
+- **Never counting.** Automation reduces errors, it doesn't remove them. Without regular counts, the system slowly drifts away from the shelf.
+
+## Frequently asked questions
+
+### Can I manage inventory with Google Sheets?
+
+Yes, for a small range of products and one or two locations. Use one row per item with a code, current stock and reorder point, forms for sales, deliveries and adjustments, and formulas that update stock. Add a no-code tool to send low-stock alerts. Once you have many items, branches or sales channels, a POS or inventory system is usually more reliable.
+
+### How do I get low-stock alerts automatically?
+
+Set a low-stock level for each item in your POS or sheet, then switch on the system's alert or use a no-code tool to email or message the person who reorders when stock falls to that level. Loyverse, for example, sends a daily email listing low items, and Zapier has templates that email team leaders when a sheet shows stock below a threshold.
+
+### How do I calculate when to reorder stock?
+
+Use a reorder point: average daily sales multiplied by the supplier's lead time in days, plus safety stock. Safety stock covers busy days and late deliveries. Review the figures every quarter and before busy seasons.
+
+### How do I stop selling the same item twice online and in my shop?
+
+Use one stock record for every channel, and make sure each sale, including WhatsApp and Instagram orders, reduces that record as soon as it's confirmed. The simplest way is to take every order through the same POS or online store, using payment links for chat orders.
+
+### Can AI manage my inventory for me?
+
+Not on its own. AI can write clear alerts, summarise weekly stock reports and help draft purchase orders. The counting, thresholds and stock updates should be done by your system's rules, which you can check. Keep a person responsible for reorders and for investigating stock gaps.
+
+## Where to go from here
+
+You don't need to automate everything at once. Start with your item list and one source of truth. Then connect your main sales channel, set reorder points for your top 20 items and switch on alerts. Add counting and the weekly report once those are running. If you haven't automated a process before, our step-by-step guide to [automating business processes in Nigeria](/insights/how-to-automate-business-processes-nigeria) explains how to choose, map and test your first one.
+
+**Want to set this up yourself?** [No-Code & Low-Code Automation](/academy#interest) at TechieBreed Academy is a four-week, live and practical programme where you build useful workflows without writing code. Stock forms, low-stock alerts and a weekly report are exactly the kind of system you can build and test on your own business between the weekend sessions. Register your interest on the [Academy page](/academy#interest), or enrol through the [student hub](https://academy.techiebreed.org).
+
+**Prefer to have it built for you?** TechieBreed designs [workflow automation](/what-we-do#automation) around how your business already works, [connects your POS, store, payments and sheets](/what-we-do#integrations) so stock updates itself, and builds [stock and sales reporting](/what-we-do#data) you can read at a glance. If you're not sure where your stock is leaking, an [AI Operations Audit](/contact#audit) is a sensible first step.
