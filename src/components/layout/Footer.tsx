@@ -139,10 +139,6 @@ export async function Footer() {
             © {year} TechieBreed. All rights reserved.{" "}
             <Link href="/privacy" className="underline decoration-white/40 underline-offset-4 hover:text-white hover:decoration-sprout">
               Privacy policy
-            </Link>{" "}
-            ·{" "}
-            <Link href="/credits" className="underline decoration-white/40 underline-offset-4 hover:text-white hover:decoration-sprout">
-              Image credits
             </Link>
           </p>
           <ul className="flex items-center gap-3" aria-label="Social media">

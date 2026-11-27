@@ -1,6 +1,6 @@
 /**
- * Stock photos used on the home page. All are free-licence photos from Magnific
- * (formerly Freepik), which requires a credit — listed on /credits.
+ * Stock photos used on the home page, from Magnific (formerly Freepik).
+ * Author and page are kept for reference.
  * Files live in public/images/home (1200px wide JPEGs; next/image resizes them).
  */
 
@@ -49,5 +49,3 @@ export const servicePhotos: Record<ServiceId, Photo> = {
   data: { src: img("service-data"), author: "DC Studio", caption: "Manager reviewing data dashboards", page: `${M}african-disabled-invalid-manager-woman-working-pc-showing-data-prosessing-desktop-project-regarding-economy-looking-financial-documents-checking-graphs-reading-raports-business-office_21516170.htm` },
   software: { src: img("service-software"), author: "DC Studio", caption: "Software developer writing code", page: `${M}software-developer-using-terminal-window-app-laptop-learning-code-new-user-interface-program-developing-cloud-computing-online-server-with-firewall-security-css-html-script_30652013.htm` },
 };
-
-export const allPhotos: Photo[] = [...heroPhotos, ...Object.values(painPhotos), ...Object.values(servicePhotos)];
